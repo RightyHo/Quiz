@@ -1,16 +1,18 @@
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
 import java.rmi.Remote;
-import java.rmi.Naming;
-import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.Set;
 
-public class PlayerClientImpl implements PlayerClient {
+
+public class SetUpClientImpl implements SetUpClient {
 	public static void main(String[] args){
 		//read imput string from console
 		String para = args[0];
-		PlayerClientImpl pc = new PlayerClientImpl();
-		pc.launch(para);
+		SetUpClientImpl su = new SetUpClientImpl();
+		su.launch(para);
 	}
 	private void launch(String str){
 		// If there is no security manager, start one
@@ -30,4 +32,14 @@ public class PlayerClientImpl implements PlayerClient {
 			ex.printStackTrace();
 		}
 	}
+	/**
+	 * Enable a user to create a new quiz 
+	 * @param quizName for the quiz
+	 * @param questionSet a set of questions
+	 * @param possibleAnswers a set of possible answers for each question
+	 * @return quizId a quiz game id
+	 */
+		public int createNewQuiz(String quizName,Set<Question> questionSet,Set<Answer> possibleAnswers){
+			return 0;
+		}
 }
