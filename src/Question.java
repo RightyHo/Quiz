@@ -3,10 +3,13 @@ import java.util.Set;
 
 public interface Question {
 /**
- * Create new question
- * @param questionId question ID number
- * @param question string 
- * @param possibleAnswers set of possible answers to the question
+ * Returns question ID number
+ * @return question ID number
  */
-void createQuestion(int questionId,String question,Set<Answer> possibleAnswers);
+	int getQuestionId();
+/**
+ * Returns the question string
+ * @return question string
+ */
+	String getQuestion();
 }
