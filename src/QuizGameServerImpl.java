@@ -1,11 +1,12 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameServer {
-	private Map<Integer,Integer> quizMap;
+	private List<Quiz> quizList;
 	
 	public QuizGameServerImpl() throws RemoteException {
-		quizMap = new HashMap<Integer,Integer>();
+		quizList = new ArrayList<Quiz>();
 	}
 	@Override
 	public String echo(String s){

@@ -10,4 +10,8 @@ public interface SetUpClient {
  * @return quizId a quiz game id
  */
 	int createNewQuiz(String quizName,Set<Question> questionSet,Set<Answer> possibleAnswers);
+/**
+ * 
+ */
+	Player closeQuiz(int quizId)
 }
