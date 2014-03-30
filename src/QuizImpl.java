@@ -14,9 +14,9 @@ public class QuizImpl {
 		questionList = new ArrayList<Question>();
 		playerAnswers = new ArrayList<Character>();
 		quizId = Id;
-		quizName = "";
+		quizName = null;
 		highScore = 0;
-		currentWinner = "";
+		currentWinner = null;
 	}
 	/**
 	 * Add a question to the quiz
@@ -34,6 +34,27 @@ public class QuizImpl {
 				}	
 			}
 			questionList.add(question);
+		}
+	}
+	/**
+	 * Returns question linked to the question number in the quiz
+	 * @param questionNumber of the the quesion in the quiz
+	 * @return the requested question
+	 */
+	public Question getQuestion(int questionNumber){
+		Question result = null;
+		if(questionlist.isEmpty(){
+			System.out.println("The quiz is empty!");
+			return result;
+		} else{
+			if(questionNumber < 1){
+				System.out.println("The question number you requested is out of the bounds of this quiz");
+			} else if(questionNumber <= questionList.size()){
+				result = questionList.get(questionNumber -1);
+			} else {
+				System.out.println("The question number you requested is out of the bounds of this quiz");
+			}
+			return result;
 		}
 	}
 	/**

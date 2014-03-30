@@ -10,6 +10,12 @@ public interface Quiz {
 	 */
 	void addQuestion(String question);
 	/**
+	 * Returns question linked to the question number in the quiz
+	 * @param questionNumber of the the quesion in the quiz
+	 * @return the requested question
+	 */
+	Question getQuestion(int questionNumber);
+	/**
 	 * Records player answers in the playerAnswers list
 	 * @param questionNumber connects the given answer to the relevant question in the quiz
 	 * @param answer char a,b,c, or d relating to the multi-choice question
