@@ -8,7 +8,7 @@ public interface Quiz {
 	 * Checks that there are no duplicates in the question list
 	 * @param question object that contains possible answers and the correct answer
 	 */
-	void addQuestion(String question);
+	void addQuestion(Question question);
 	/**
 	 * Returns question linked to the question number in the quiz
 	 * @param questionNumber of the the quesion in the quiz
@@ -30,7 +30,7 @@ public interface Quiz {
 	 * Sets the quiz name
 	 * @param quizName String 
 	 */
-	void setQuizName(Sting quizName);
+	void setQuizName(String quizName);
 	/**
 	 * Returns the quiz name
 	 * @return String of the quiz name

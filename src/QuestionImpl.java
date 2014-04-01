@@ -7,7 +7,7 @@ public class QuestionImpl implements Question {
 	private String answerC;
 	private String answerD;
 	private char correctAnswer;
-	
+
 	public QuestionImpl(){
 		questionId = 0;
 		question = "";
@@ -69,4 +69,50 @@ public class QuestionImpl implements Question {
 		this.answerD = answerD;
 		this.correctAnswer = correctAnswer;
 	}
+	/**
+	 * Returns the requested possible answer
+	 * @param whichAnswer a char denoting which answer A,B,C or D is being requested
+	 * @return answer string or null if the parameters are outside of the bounds
+	 */
+	public String getAnswer(char whichAnswer){
+		if(whichAnswer == 'a' || whichAnswer == 'A'){
+			return answerA;
+		} else if(whichAnswer == 'b' || whichAnswer == 'B'){
+			return answerB;
+		} else if(whichAnswer == 'c' || whichAnswer == 'C'){
+			return answerC;
+		} else if(whichAnswer == 'd' || whichAnswer == 'D'){
+			return answerD;
+		} else {
+			System.out.println("ERROR - the answer letter you entered is out of bounds!");
+			return null;
+		}
+	}
+	/**
+	 * Returns the letter that represents the correct possible answer to the question
+	 * @return char the letter of the correct answer
+	 */
+	public char getCorrectAnswer(){
+		return correctAnswer;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

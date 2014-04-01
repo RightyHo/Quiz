@@ -31,4 +31,15 @@ public interface Question {
 	 * @param correctAnswer char indicating which answer is correct	 
 	 */
 	void setAnswers(String answerA,String answerB,String answerC,String answerD,char correctAnswer);
+	/**
+	 * Returns the requested possible answer
+	 * @param whichAnswer a char denoting which answer A,B,C or D is being requested
+	 * @return answer string
+	 */
+	String getAnswer(char whichAnswer);
+	/**
+	 * Returns the letter that represents the correct possible answer to the question
+	 * @return char the letter of the correct answer
+	 */
+	char getCorrectAnswer();
 }

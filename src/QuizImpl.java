@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.NullPointerException;
 
-public class QuizImpl {
+public class QuizImpl implements Quiz {
 	private List<Question> questionList;		//question list with no duplicates
 	private List<Character> playerAnswers;		//stores answers to questions by players in the order they are received
 	private int quizId;
@@ -23,7 +23,7 @@ public class QuizImpl {
 	 * Checks that there are no duplicates in the question list
 	 * @param question object that contains possible answers and the correct answer
 	 */
-	public void addQuestion(String question){
+	public void addQuestion(Question question){
 		if(questionList.isEmpty()){
 			questionList.add(question);
 		} else {
@@ -43,7 +43,7 @@ public class QuizImpl {
 	 */
 	public Question getQuestion(int questionNumber){
 		Question result = null;
-		if(questionlist.isEmpty(){
+		if(questionList.isEmpty()){
 			System.out.println("The quiz is empty!");
 			return result;
 		} else{
@@ -80,7 +80,7 @@ public class QuizImpl {
 	 * Sets the quiz name
 	 * @param quizName String 
 	 */
-	public void setQuizName(Sting quizName){
+	public void setQuizName(String quizName){
 		this.quizName = quizName;
 	}
 	/**
