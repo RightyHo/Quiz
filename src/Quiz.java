@@ -22,6 +22,12 @@ public interface Quiz {
 	 */
 	void recordAnswer(int questionNumber,char answer);
 	/**
+	 * Returns the answer in the playerAnswers list
+	 * @param questionNumber the question number of the player answer we are looking for
+	 * @return char of the player answer stored for the question number 
+	 */
+	Character getPlayerAnswer(int questionNumber);
+	/**
 	 * Returns quiz ID
 	 * @return quizId
 	 */

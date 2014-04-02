@@ -67,7 +67,33 @@ public class QuizImpl implements Quiz {
 			playerAnswers.add(questionNumber,answer);
 		} catch(NullPointerException ex){
 			ex.printStackTrace();
+		} catch(IllegalArgumentException ex){
+			ex.printStackTrace();
+			System.out.println("Error - illegal arguments");
+		} catch(IndexOutOfBoundsException ex){
+			ex.printStackTrace();
+			System.out.println("Error - index is out of range");
 		}
+	}
+	/**
+	 * Returns the answer in the playerAnswers list
+	 * @param questionNumber the question number of the player answer we are looking for
+	 * @return char of the player answer stored for the question number 
+	 * @throws IndexOutOfBoundsException if questionNumber is outside of playerAnswers list range
+	 */
+	public Character getPlayerAnswer(int questionNumber){
+		Character result = null;
+		try{
+			if(questionNumber < 0 || questionNumber > playerAnswers.size()-1){
+				throw new IndexOutOfBoundsException();
+			} else {
+				result = playerAnswers.get(questionNumber);
+				return result;
+			}
+		} catch (NullPointerException ex){
+			System.out.println("Error - the playerAnswers list is null!");
+		}
+		return result;
 	}
 	/**
 	 * Returns quiz ID
