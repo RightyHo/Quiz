@@ -1,4 +1,5 @@
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -10,6 +11,12 @@ import org.junit.Test;
 public class QuizTest {
 	Quiz testQ;
 	int questionNumber;
+	char charOutput;
+	char charExpected;
+	int intOutput;
+	int intExpected;
+	String strOutput;
+	String strExpected;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -22,62 +29,119 @@ public class QuizTest {
 	@Before
 	public void setUp() throws Exception {
 		testQ = new QuizImpl(707);
+		charOutput = '?';
+		charExpected = '?';
+		intOutput = 0;
+		intExpected = 0;
+		strOutput = "";
+		strExpected = "";
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
-
+	
+	/**
+	 * tests addQuestion() & getQuestion() methods
+	 */
 	@Test
 	public void testAddQuestion() {
-		Question q = new QuestionImpl(;)
-		testQ.addQuestion(question);
-	}
-
-	@Test
-	public void testGetQuestion() {
+		Question q = new QuestionImpl();
+		testQ.addQuestion(q);
 		Question outputQuestion = testQ.getQuestion(1);
-		assertNull(outputQuestion);
+		assertNotNull(outputQuestion);
 	}
 
 	@Test
 	public void testRecordAnswer() {
-		fail("Not yet implemented");
+		try{
+			testQ.recordAnswer(0,'a');
+			testQ.recordAnswer(1,'d');
+			testQ.recordAnswer(2,'b');
+			charOutput = testQ.getPlayerAnswer(0);
+			charExpected = 'a';
+			assertEquals(charExpected,charOutput);
+			charOutput = testQ.getPlayerAnswer(1);
+			charExpected = 'd';
+			assertEquals(charExpected,charOutput);
+			charOutput = testQ.getPlayerAnswer(2);
+			charExpected = 'b';
+			assertEquals(charExpected,charOutput);
+			charOutput = testQ.getPlayerAnswer(6);
+			charExpected = 'a';
+			assertEquals(charExpected,charOutput);
+		} catch (IndexOutOfBoundsException ex){
+			System.out.println("Error - The player answer at the question number you selected doesn't exist!");
+		}
 	}
 
 	@Test
 	public void testGetQuizId() {
-		fail("Not yet implemented");
+		intOutput = testQ.getQuizId();
+		intExpected = 707;
+		assertEquals(intExpected,intOutput);
 	}
-
+	/**
+	 * test setQuizName() & getQuizName() methods
+	 */
 	@Test
 	public void testSetQuizName() {
-		fail("Not yet implemented");
+		testQ.setQuizName("Lets get quizzical");
+		strOutput = testQ.getQuizName();
+		strExpected = "Lets get quizzical";
+		assertEquals(strExpected,strOutput);
 	}
-
-	@Test
-	public void testGetQuizName() {
-		fail("Not yet implemented");
-	}
-
+	
+	/**
+	 * test setHighScore() & getHighScore() methods
+	 */
 	@Test
 	public void testSetHighScore() {
-		fail("Not yet implemented");
+		testQ.setHighScore(8);
+		intOutput = testQ.getHighScore();
+		intExpected = 8;
 	}
 
-	@Test
-	public void testGetHighScore() {
-		fail("Not yet implemented");
-	}
-
+	/**
+	 * test setCurrentWinner() & getCurrentWinner() methods
+	 */
 	@Test
 	public void testSetCurrentWinner() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetCurrentWinner() {
-		fail("Not yet implemented");
+		testQ.setCurrentWinner("Laura");
+		strOutput = testQ.getCurrentWinner();
+		
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -26,7 +26,7 @@ public class QuestionTest {
 	@Before
 	public void setUp() throws Exception {
 		q1 = new QuestionImpl();
-		q2 = new QuestionImpl(845,"Whats your favourite food?","Silverbeet","Shrimp","Mushroom","Lamb",'c');
+		q2 = new QuestionImpl(845,"Whats your favourite food?","Silverbeet","Shrimp","Mushroom","Lamb",'d');
 		strOutput = "";
 		String strExpected = "";
 		intOutput = 0;
@@ -66,13 +66,40 @@ public class QuestionTest {
 		strExpected = "Whats your favourite food?";
 		assertEquals(strExpected,strOutput);
 	}
-
+	/**
+	 * tests setAnswers() method and also tests getAnswer() and getCorrectAnswer() methods
+	 */
 	@Test
 	public void testSetAnswers() {
-		q2.setAnswers("They boycotted the cup because as an anti-Whaling protest", "Yes,easily!","No, they've already been knocked out","No, they were robbed by the umpires and weren't given the chance!", 'c');
-		strOutput = q2.getAnswer('A');
+		q1.setAnswers("They boycotted the cup because as an anti-Whaling protest", "Yes,easily!","No, they've already been knocked out","No, they were robbed by the umpires and weren't given the chance!", 'c');
+		strOutput = q1.getAnswer('A');
 		strExpected = "They boycotted the cup because as an anti-Whaling protest";
 		assertEquals(strExpected,strOutput);
+		char charOutput = q1.getCorrectAnswer();
+		char charExpected = 'c';
+		assertEquals(charExpected,charOutput);
+		charOutput = q2.getCorrectAnswer();
+		charExpected = 'd';
+		assertEquals(charExpected,charOutput);
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
