@@ -2,6 +2,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Exception.*;
 
 public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameServer {
 	private List<Quiz> quizList;
@@ -70,10 +71,17 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 			return result;
 		} else {
 			for(int i=0;i<completedQuiz.getNumberOfQuestions();i++){
-				char correctAnswer = completedQuiz.getQuestion(i).getCorrectAnswer();
-				char givenAnswer = completedQuiz.getPlayerAnswer(i);
-				if(correctAnswer == givenAnswer){
-					result++;
+				try{
+					char correctAnswer = completedQuiz.getQuestion(i).getCorrectAnswer();
+					char givenAnswer = completedQuiz.getPlayerAnswer(i);
+					if(correctAnswer == givenAnswer){
+						result++;
+					}
+				} catch(NullPointerException ex){
+					ex.printStackTrace();
+				} catch (IndexOutOfBoundsException ex){
+					ex.printStackTrace();
+					System.out.println("the question and answer numbers don't seem to be matching?");
 				}
 			}
 		}

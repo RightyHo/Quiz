@@ -114,10 +114,41 @@ public class QuizGameServerTest {
 	/**
 	 * Calculates and returns the score of a completed quiz
 	 * @return the number of correct answers 
+	 * @throws RemoteException 
 	 */
 	@Test
-	public void testCalculateScore(){
-		
+	public void testCalculateScore() throws RemoteException{
+		//set up testQ4 with correct answers & player answers
+		Quiz q4 = new QuizImpl(121);
+		q4.setQuizName("testQ4");
+		Question mockQ1 = Mockito.mock(Question.class);
+		Question mockQ2 = Mockito.mock(Question.class);
+		Question mockQ3 = Mockito.mock(Question.class);
+		Question mockQ4 = Mockito.mock(Question.class);
+		Question mockQ5 = Mockito.mock(Question.class);
+		q4.addQuestion(mockQ1);
+		q4.addQuestion(mockQ2);
+		q4.addQuestion(mockQ3);
+		q4.addQuestion(mockQ4);
+		q4.addQuestion(mockQ5);
+		// define return value for method getCorrectAnswer()
+		Mockito.when(mockQ1.getCorrectAnswer()).thenReturn('a');
+		Mockito.when(mockQ2.getCorrectAnswer()).thenReturn('b');
+		Mockito.when(mockQ3.getCorrectAnswer()).thenReturn('c');
+		Mockito.when(mockQ4.getCorrectAnswer()).thenReturn('d');
+		Mockito.when(mockQ5.getCorrectAnswer()).thenReturn('a');
+		//add player answers to testQ2
+		q4.recordAnswer(1, 'c');
+		q4.recordAnswer(2, 'b');
+		q4.recordAnswer(3, 'c');
+		q4.recordAnswer(4, 'c');
+		q4.recordAnswer(1, 'a');
+		server.addFullQuizToList(q4);
+		Quiz completedQuiz = server.getQuiz("testQ4");
+		intOutput = server.calculateScore(completedQuiz);
+		intExpected = 3;
+		assertEquals(intExpected,intOutput);
+		Mockito.verify(mockQ1).getCorrectAnswer();
 	}
 	/**
 	 * Returns a list of the available quiz names
