@@ -144,4 +144,13 @@ public class QuizImpl implements Quiz {
 	public String getCurrentWinner(){
 		return currentWinner;
 	}
+	/**
+	 * Returns the number of questions in the quiz
+	 * @return int the number of questions in the quiz
+	 */
+	public int getNumberOfQuestions(){
+		int result = 0;
+		result = questionList.size();
+		return result;
+	}
 }

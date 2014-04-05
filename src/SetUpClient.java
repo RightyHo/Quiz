@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Set;
 
 
@@ -9,9 +10,9 @@ public interface SetUpClient {
  * @param possibleAnswers a set of possible answers for each question
  * @return quizId a quiz game id
  */
-	int createNewQuiz(String quizName,Set<Question> questionSet,Set<Answer> possibleAnswers);
+	int createNewQuiz(String quizName,List<Question> questionList);
 /**
  * 
  */
-	Player closeQuiz(int quizId)
+	String closeQuiz(int quizId);
 }

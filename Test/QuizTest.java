@@ -1,10 +1,6 @@
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 
@@ -17,14 +13,6 @@ public class QuizTest {
 	int intExpected;
 	String strOutput;
 	String strExpected;
-	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -71,7 +59,7 @@ public class QuizTest {
 			charExpected = 'a';
 			assertEquals(charExpected,charOutput);
 		} catch (IndexOutOfBoundsException ex){
-			System.out.println("Error - The player answer at the question number you selected doesn't exist!");
+			System.out.println("TEST PASSED - The player answer at the question number you selected doesn't exist!");
 		}
 	}
 

@@ -20,8 +20,8 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	 */
 	public Quiz createEmptyQuiz() throws RemoteException{
 		//Create random quiz ID number 1 - 100
-		double randNumber = Math.random();
-		double d = randNumber * 100;
+		double randomNumber = Math.random();
+		double d = randomNumber * 100;
 		//Type cast double to int
 		int quizId = (int)d + 1;
 		Quiz emptyQuiz = new QuizImpl(quizId);
@@ -31,7 +31,7 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	 * Adds a full quiz to the quizList
 	 * @param fullQuiz a quiz that has been set up with all of its questions and suggested answers
 	 */
-	public void addFullQuizToList(Quiz fullQuiz){
+	public void addFullQuizToList(Quiz fullQuiz) throws RemoteException{
 		//check that quiz has been set up correctly
 		if(fullQuiz.getQuizName()!=null){
 			if(fullQuiz.getQuestion(1)!= null){
@@ -43,31 +43,77 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	 * Closes the quiz game, quoting the game id. 
 	 * The outcome will be a notification of the winner together with full player details (which should be persisted on the server).
 	 * @param quizId quiz ID number
-	 * @return winner name of the player who achieved the highest score on this quiz
+	 * @return winner name of the player who achieved the highest score on this quiz or null if the quiz ID is not valid
 	 */
 	public String closeQuizGame(int id) throws RemoteException{
-		return null;
+		String result = null;
+		for(int i=0;i<quizList.size();i++){
+			if(quizList.get(i).getQuizId() == id){
+				result = quizList.get(i).getCurrentWinner();
+				String qName = quizList.get(i).getQuizName();
+				int qScore = quizList.get(i).getHighScore();
+				System.out.println("The winner of the "+ qName + " quiz is " + result + " with a high score of " + qScore);
+				quizList.remove(i);
+			}
+		}
+		return result;
 	}
 	/**
 	 * Calculates and returns the score of a completed quiz
+	 * @param completedQuiz a completed quiz
 	 * @return the number of correct answers 
 	 */
-	public int calculateScore() throws RemoteException{
-		return 0;
+	public int calculateScore(Quiz completedQuiz) throws RemoteException{
+		int result = 0;
+		if(completedQuiz == null){
+			System.out.println("Error - The quiz you passed was null!");
+			return result;
+		} else {
+			for(int i=0;i<completedQuiz.getNumberOfQuestions();i++){
+				char correctAnswer = completedQuiz.getQuestion(i).getCorrectAnswer();
+				char givenAnswer = completedQuiz.getPlayerAnswer(i);
+				if(correctAnswer == givenAnswer){
+					result++;
+				}
+			}
+		}
+		return result;
 	}
 	/**
 	 * Returns a list of the available quiz names
 	 * @return quizList a list  of the available quiz names
 	 */
 	public List<String> getAvaliableQuizList() throws RemoteException{
-		return null;
+		List<String> result = new ArrayList<String>();
+		try {
+			for(Quiz q : quizList){
+				result.add(q.getQuizName());
+			}
+		} catch(NullPointerException ex){
+			ex.printStackTrace();
+			System.out.println("encountered a null pointer when using quizList");
+		}
+		return result;
 	}
 	/**
 	 * Returns a quiz selected by name
 	 * @param quizName the name of the chosen quiz 
+	 * @return the selected quiz or null if not found
 	 */
 	public Quiz getQuiz(String quizName) throws RemoteException{
-		return null;
+		Quiz result = null;
+		if(quizName == null){
+			System.out.println("Error - the quiz name you requested was null");
+			return result;
+		} else {
+			for(Quiz q : quizList){
+				if(q.getQuizName().equals(quizName)){
+					result = q;
+					return result;
+				}
+			}
+		}
+		return result;
 	}
 	/**
 	 * Stores the high score of the quiz and the name of the current winner on disk
@@ -76,3 +122,34 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 		//add code
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

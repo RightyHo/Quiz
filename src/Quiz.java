@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
-
 public interface Quiz {
 	/**
 	 * Add a question to the quiz
@@ -62,4 +58,9 @@ public interface Quiz {
 	 * @return currentWinner the name of the person with the current highest score for this quiz
 	 */
 	String getCurrentWinner();
+	/**
+	 * Returns the number of questions in the quiz
+	 * @return int the number of questions in the quiz
+	 */
+	int getNumberOfQuestions();
 }

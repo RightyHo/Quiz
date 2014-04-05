@@ -1,9 +1,7 @@
 import static org.junit.Assert.*;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 
@@ -14,21 +12,13 @@ public class QuestionTest {
 	String strExpected;
 	int intOutput;
 	int intExpected;
-	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
 
 	@Before
 	public void setUp() throws Exception {
 		q1 = new QuestionImpl();
 		q2 = new QuestionImpl(845,"Whats your favourite food?","Silverbeet","Shrimp","Mushroom","Lamb",'d');
 		strOutput = "";
-		String strExpected = "";
+		strExpected = "";
 		intOutput = 0;
 		intExpected = 0;
 	}

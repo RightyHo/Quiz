@@ -4,6 +4,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Set;
 
 
@@ -39,7 +40,11 @@ public class SetUpClientImpl implements SetUpClient {
 	 * @param possibleAnswers a set of possible answers for each question
 	 * @return quizId a quiz game id
 	 */
-		public int createNewQuiz(String quizName,Set<Question> questionSet,Set<Answer> possibleAnswers){
+		public int createNewQuiz(String quizName,List<Question> questionList){
 			return 0;
 		}
+
+	public String closeQuiz(int quizId) {
+		return null;
+	}
 }

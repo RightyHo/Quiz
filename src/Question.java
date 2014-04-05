@@ -1,6 +1,3 @@
-import java.util.Set;
-
-
 public interface Question {
 	/**
 	 * Sets question ID number
