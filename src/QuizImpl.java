@@ -5,6 +5,7 @@ import java.lang.NullPointerException;
 public class QuizImpl implements Quiz {
 	private List<Question> questionList;		//question list with no duplicates
 	private List<Character> playerAnswers;		//stores answers to questions by players in the order they are received
+	private int playerScore;
 	private int quizId;
 	private String quizName;
 	private int highScore;
@@ -13,6 +14,7 @@ public class QuizImpl implements Quiz {
 	public QuizImpl(int Id){
 		questionList = new ArrayList<Question>();
 		playerAnswers = new ArrayList<Character>();
+		playerScore = 0;
 		quizId = Id;
 		quizName = null;
 		highScore = 0;
@@ -64,7 +66,11 @@ public class QuizImpl implements Quiz {
 	 */
 	public void recordAnswer(int questionNumber,char answer){
 		try{
-			playerAnswers.add(questionNumber,answer);
+			if(playerAnswers.size() >= questionNumber){
+				playerAnswers.add(questionNumber,answer);
+			} else {
+				playerAnswers.add(answer);
+			}
 		} catch(NullPointerException ex){
 			ex.printStackTrace();
 		} catch(IllegalArgumentException ex){
@@ -153,4 +159,75 @@ public class QuizImpl implements Quiz {
 		result = questionList.size();
 		return result;
 	}
+	/**
+	 * Calculates and returns the score of a completed quiz
+	 * @return the number of correct answers 
+	 */
+	public int calculatePlayerScore(){
+		playerScore = 0;
+		try{
+			System.out.println("player answers " + playerAnswers.size());
+			System.out.println("questions list " + questionList.size());
+			if(playerAnswers.size() == questionList.size()){
+				for(int i=0;i<questionList.size();i++){				
+					if(questionList.get(i).getCorrectAnswer() == playerAnswers.get(i)){
+						playerScore++;
+					}
+				}
+				return playerScore;
+			} else {
+				System.out.println("You have not completed the quiz correctly.  Please try again!");
+				return -1;
+			}
+		} catch(NullPointerException ex){
+			ex.printStackTrace();
+		} catch (IndexOutOfBoundsException ex){
+			ex.printStackTrace();
+			System.out.println("the question and answer numbers don't seem to be matching?");				
+		}
+		return playerScore;
+	}	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

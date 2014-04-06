@@ -1,7 +1,9 @@
 import static org.junit.Assert.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 
 public class QuizTest {
@@ -39,7 +41,9 @@ public class QuizTest {
 		Question outputQuestion = testQ.getQuestion(1);
 		assertNotNull(outputQuestion);
 	}
-
+	/**
+	 * tests recordAnswer() and getPlayerAnswer() methods
+	 */
 	@Test
 	public void testRecordAnswer() {
 		try{
@@ -97,9 +101,39 @@ public class QuizTest {
 	public void testSetCurrentWinner() {
 		testQ.setCurrentWinner("Laura");
 		strOutput = testQ.getCurrentWinner();
-		
+		assertEquals("Laura",strOutput);
 	}
-
+	
+	@Test
+	public void testCalculatePlayerScore(){
+		testQ.setQuizName("Sports Quiz");
+		Question mockQ1 = Mockito.mock(Question.class);
+		Question mockQ2 = Mockito.mock(Question.class);
+		Question mockQ3 = Mockito.mock(Question.class);
+		Question mockQ4 = Mockito.mock(Question.class);
+		Question mockQ5 = Mockito.mock(Question.class);
+		testQ.addQuestion(mockQ1);
+		testQ.addQuestion(mockQ2);
+		testQ.addQuestion(mockQ3);
+		testQ.addQuestion(mockQ4);
+		testQ.addQuestion(mockQ5);
+		// define return value for method getCorrectAnswer()
+		Mockito.when(mockQ1.getCorrectAnswer()).thenReturn('a');
+		Mockito.when(mockQ2.getCorrectAnswer()).thenReturn('b');
+		Mockito.when(mockQ3.getCorrectAnswer()).thenReturn('c');
+		Mockito.when(mockQ4.getCorrectAnswer()).thenReturn('d');
+		Mockito.when(mockQ5.getCorrectAnswer()).thenReturn('a');
+		//add player answers to testQ
+		testQ.recordAnswer(1, 'c');
+		testQ.recordAnswer(2, 'b');
+		testQ.recordAnswer(3, 'c');
+		testQ.recordAnswer(4, 'c');
+		testQ.recordAnswer(5, 'a');
+		intOutput = testQ.calculatePlayerScore();
+		intExpected = 3;
+		assertEquals(intExpected,intOutput);
+		Mockito.verify(mockQ1).getCorrectAnswer();
+	}
 }
 
 

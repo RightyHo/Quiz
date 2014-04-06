@@ -63,4 +63,9 @@ public interface Quiz {
 	 * @return int the number of questions in the quiz
 	 */
 	int getNumberOfQuestions();
+	/**
+	 * Calculates and returns the score of a completed quiz
+	 * @return the number of correct answers 
+	 */
+	int calculatePlayerScore();
 }

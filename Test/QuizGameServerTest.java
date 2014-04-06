@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -111,11 +112,7 @@ public class QuizGameServerTest {
 			System.out.println("Error - the quiz list is null!");
 		}
 	}
-	/**
-	 * Calculates and returns the score of a completed quiz
-	 * @return the number of correct answers 
-	 * @throws RemoteException 
-	 */
+ 
 	@Test
 	public void testCalculateScore() throws RemoteException{
 		//set up testQ4 with correct answers & player answers
@@ -132,7 +129,7 @@ public class QuizGameServerTest {
 		q4.addQuestion(mockQ4);
 		q4.addQuestion(mockQ5);
 		// define return value for method getCorrectAnswer()
-		Mockito.when(mockQ1.getCorrectAnswer()).thenReturn('a');
+		Mockito.when(mockQ1.getCorrectAnswer()).thenReturn('c');
 		Mockito.when(mockQ2.getCorrectAnswer()).thenReturn('b');
 		Mockito.when(mockQ3.getCorrectAnswer()).thenReturn('c');
 		Mockito.when(mockQ4.getCorrectAnswer()).thenReturn('d');
@@ -142,21 +139,52 @@ public class QuizGameServerTest {
 		q4.recordAnswer(2, 'b');
 		q4.recordAnswer(3, 'c');
 		q4.recordAnswer(4, 'c');
-		q4.recordAnswer(1, 'a');
+		q4.recordAnswer(4, 'a');
 		server.addFullQuizToList(q4);
 		Quiz completedQuiz = server.getQuiz("testQ4");
 		intOutput = server.calculateScore(completedQuiz);
-		intExpected = 3;
+		intExpected = 4;
 		assertEquals(intExpected,intOutput);
 		Mockito.verify(mockQ1).getCorrectAnswer();
 	}
+ 
+	@Test
+	public void testGetAvaliableQuizList() throws RemoteException {
+		List<String> listExpected = new ArrayList<String>();
+		listExpected.add("testQ1");
+		listExpected.add("testQ2");
+		listExpected.add("testQ3");
+		List<String> listOutput = server.getAvaliableQuizList();
+		assertEquals(listExpected,listOutput);
+	}
+	
 	/**
-	 * Returns a list of the available quiz names
-	 * @return quizList a list  of the available quiz names
+	 * Returns a quiz selected by name
+	 * @param quizName the name of the chosen quiz 
+	 * @return the selected quiz or null if not found
+	 * @throws RemoteException 
 	 */
 	@Test
-	public void testGetAvaliableQuizList() {
+	public void testGetQuiz() throws RemoteException{
+		Quiz q5 = new QuizImpl(221);
+		q5.setQuizName("testQ5");
+		Question test1 = Mockito.mock(Question.class);
+		Question test2 = Mockito.mock(Question.class);
+		Question test3 = Mockito.mock(Question.class);
+		q5.addQuestion(test1);
+		q5.addQuestion(test2);
+		q5.addQuestion(test3);
+		// define return value for method getQuestion()
+		Mockito.when(test1.getQuestion()).thenReturn("Test 1 quetion?");
+		Mockito.when(test2.getQuestion()).thenReturn("Test 2 quetion?");
+		Mockito.when(test3.getQuestion()).thenReturn("Test 3 quetion?");
+		q5.setHighScore(8);
+		q5.setCurrentWinner("Matt");
+		Quiz quizExpected = q5;
 		
+		server.addFullQuizToList(q5);
+		Quiz quizOutput = server.getQuiz("testQ5");
+		assertEquals(quizExpected,quizOutput);
 	}
 }
 

@@ -2,7 +2,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.Exception.*;
 
 public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameServer {
 	private List<Quiz> quizList;
@@ -70,19 +69,13 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 			System.out.println("Error - The quiz you passed was null!");
 			return result;
 		} else {
-			for(int i=0;i<completedQuiz.getNumberOfQuestions();i++){
-				try{
-					char correctAnswer = completedQuiz.getQuestion(i).getCorrectAnswer();
-					char givenAnswer = completedQuiz.getPlayerAnswer(i);
-					if(correctAnswer == givenAnswer){
-						result++;
-					}
-				} catch(NullPointerException ex){
-					ex.printStackTrace();
-				} catch (IndexOutOfBoundsException ex){
-					ex.printStackTrace();
-					System.out.println("the question and answer numbers don't seem to be matching?");
-				}
+			try{
+				result = completedQuiz.calculatePlayerScore();
+			} catch(NullPointerException ex){
+				ex.printStackTrace();
+			} catch (IndexOutOfBoundsException ex){
+				ex.printStackTrace();
+				System.out.println("the question and answer numbers don't seem to be matching?");				
 			}
 		}
 		return result;
@@ -127,7 +120,17 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	 * Stores the high score of the quiz and the name of the current winner on disk
 	 */
 	public void flush() throws RemoteException{
-		//add code
+		File file = new File("quizFile.txt"); 
+		try {
+			PrintWriter out = new PrintWriter(file);
+			out.write(...);
+			} catch (FileNotFoundException ex) {
+			// This happens if file does not exist and cannot be created, // or if it exists, but is not writable System.out.println("Cannot write to file " + file + ".");
+			} catch (IOException ex) { ex.printStackTrace();
+			    } finally {
+			        out.close()
+			}
+
 	}
 }
 
