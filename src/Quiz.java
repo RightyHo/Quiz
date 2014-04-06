@@ -1,3 +1,5 @@
+import java.util.List;
+
 public interface Quiz {
 	/**
 	 * Add a question to the quiz
@@ -65,7 +67,13 @@ public interface Quiz {
 	int getNumberOfQuestions();
 	/**
 	 * Calculates and returns the score of a completed quiz
+	 * updates results list with the score
 	 * @return the number of correct answers 
 	 */
 	int calculatePlayerScore();
+	/**
+	 * Returns a list of the results of the various user attempts on this quiz
+	 * @return integer list representing the results all of the various user attempts on this quiz
+	 */
+	List<Integer> getResultsList();
 }

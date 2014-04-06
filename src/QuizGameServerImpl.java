@@ -3,18 +3,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameServer, Serializable {
+public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameServer {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<Quiz> quizList;
+	private List<QuizResults> resultsList;
+//	private List<Character> playerAnswers;		//stores answers to questions by players in the order they are received
 	
 	public QuizGameServerImpl() throws RemoteException {
 		quizList = new ArrayList<Quiz>();
@@ -40,14 +41,19 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	/**
 	 * Adds a full quiz to the quizList
 	 * @param fullQuiz a quiz that has been set up with all of its questions and suggested answers
+	 * @return 
+	 * @return Results creates and returns a new QuizResults object to store the quiz results	 
 	 */
-	public void addFullQuizToList(Quiz fullQuiz) throws RemoteException{
+	public QuizResults addFullQuizToList(Quiz fullQuiz) throws RemoteException{
+		QuizResults quizResults = null;
 		//check that quiz has been set up correctly
 		if(fullQuiz.getQuizName()!=null){
 			if(fullQuiz.getQuestion(1)!= null){
 				quizList.add(fullQuiz);
+				quizResults = new QuizResultsImpl(fullQuiz.getQuizId());
 			}
 		}
+		return quizResults;
 	}
 	/**
 	 * Closes the quiz game, quoting the game id. 

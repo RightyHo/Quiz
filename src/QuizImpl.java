@@ -166,6 +166,7 @@ public class QuizImpl implements Quiz,Serializable {
 	}
 	/**
 	 * Calculates and returns the score of a completed quiz
+	 * updates results list with the score
 	 * @return the number of correct answers 
 	 */
 	public int calculatePlayerScore(){
@@ -179,6 +180,7 @@ public class QuizImpl implements Quiz,Serializable {
 						playerScore++;
 					}
 				}
+				results.add(playerScore);
 				return playerScore;
 			} else {
 				System.out.println("You have not completed the quiz correctly.  Please try again!");
@@ -190,8 +192,16 @@ public class QuizImpl implements Quiz,Serializable {
 			ex.printStackTrace();
 			System.out.println("the question and answer numbers don't seem to be matching?");				
 		}
+		results.add(playerScore);
 		return playerScore;
 	}	
+	/**
+	 * Returns a list of the results of the various user attempts on this quiz
+	 * @return integer list representing the results all of the various user attempts on this quiz
+	 */
+	public List<Integer> getResultsList(){
+		return results;
+	}
 }
 
 

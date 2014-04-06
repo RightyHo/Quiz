@@ -16,8 +16,10 @@ public interface QuizGameServer extends Remote {
 	/**
 	 * Adds a full quiz to the quizList
 	 * @param fullQuiz a quiz that has been set up with all of its questions and suggested answers
+	 * @return 
+	 * @return Results creates and returns a new QuizResults object to store the quiz results	 
 	 */
-	public void addFullQuizToList(Quiz fullQuiz) throws RemoteException;
+	QuizResults addFullQuizToList(Quiz fullQuiz) throws RemoteException;
 	/**
 	 * Closes the quiz game, quoting the game id. 
 	 * The outcome will be a notification of the winner together with full player details (which should be persisted on the server).

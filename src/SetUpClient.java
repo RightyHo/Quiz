@@ -11,7 +11,9 @@ public interface SetUpClient {
  */
 	int createNewQuiz(String quizName,List<Question> questionList);
 /**
- * 
+ * Closes the quiz with the given quiz ID number
+ * @param quizId quiz ID number
+ * @return String representing the Name of the quiz winner
  */
 	String closeQuiz(int quizId);
 }
