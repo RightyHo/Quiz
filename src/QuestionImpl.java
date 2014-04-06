@@ -1,5 +1,11 @@
+import java.io.Serializable;
 
-public class QuestionImpl implements Question {
+
+public class QuestionImpl implements Question, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int questionId;
 	private String question;
 	private String answerA;

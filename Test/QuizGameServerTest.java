@@ -158,12 +158,6 @@ public class QuizGameServerTest {
 		assertEquals(listExpected,listOutput);
 	}
 	
-	/**
-	 * Returns a quiz selected by name
-	 * @param quizName the name of the chosen quiz 
-	 * @return the selected quiz or null if not found
-	 * @throws RemoteException 
-	 */
 	@Test
 	public void testGetQuiz() throws RemoteException{
 		Quiz q5 = new QuizImpl(221);
@@ -185,6 +179,11 @@ public class QuizGameServerTest {
 		server.addFullQuizToList(q5);
 		Quiz quizOutput = server.getQuiz("testQ5");
 		assertEquals(quizExpected,quizOutput);
+	}
+	
+	@Test
+	public void testFlush() throws RemoteException{
+		server.flush();
 	}
 }
 

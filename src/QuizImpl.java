@@ -1,8 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 import java.lang.NullPointerException;
 
-public class QuizImpl implements Quiz {
+public class QuizImpl implements Quiz,Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Question> questionList;		//question list with no duplicates
 	private List<Character> playerAnswers;		//stores answers to questions by players in the order they are received
 	private int playerScore;

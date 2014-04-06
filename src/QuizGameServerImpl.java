@@ -1,9 +1,19 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameServer {
+public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameServer, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Quiz> quizList;
 	
 	public QuizGameServerImpl() throws RemoteException {
@@ -120,18 +130,37 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	 * Stores the high score of the quiz and the name of the current winner on disk
 	 */
 	public void flush() throws RemoteException{
-		File file = new File("quizFile.txt"); 
+		File file = new File("quizFile.ser"); 
+		ObjectOutputStream out = null;
+		FileOutputStream fileOut = null;
 		try {
-			PrintWriter out = new PrintWriter(file);
-			out.write(...);
-			} catch (FileNotFoundException ex) {
-			// This happens if file does not exist and cannot be created, // or if it exists, but is not writable System.out.println("Cannot write to file " + file + ".");
-			} catch (IOException ex) { ex.printStackTrace();
-			    } finally {
-			        out.close()
-			}
-
+			fileOut = new FileOutputStream(file);
+			out = new ObjectOutputStream(fileOut);
+			out.writeObject(quizList);
+			System.out.printf("Serialized data is saved in quizFile.ser");
+		} catch(FileNotFoundException ex) {
+		// This happens if file does not exist and cannot be created, 
+		// or if it exists, but is not writable 
+			System.out.println("Cannot write to file " + file + ".");
+		} catch(IOException ex) { 
+			ex.printStackTrace();
+	    } finally {
+	        closeWriter(out,fileOut);
+		}
 	}
+	private void closeWriter(ObjectOutputStream out,FileOutputStream fileOut) { 
+		try {
+			if(out != null) { 
+				out.close();
+			}
+			if(fileOut != null) { 
+				fileOut.close();
+			}
+		} catch(IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
 }
 
 
