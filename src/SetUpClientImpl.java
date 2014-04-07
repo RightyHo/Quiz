@@ -24,6 +24,7 @@ public class SetUpClientImpl implements SetUpClient {
 			QuizGameServer quizGameService = (QuizGameServer) service;
 			String receivedEcho = quizGameService.echo(str);
 			System.out.println("this is the received echo:  " + receivedEcho);
+			createNewQuiz(quizGameService);
 		} catch (MalformedURLException ex){
 			ex.printStackTrace();
 		} catch (NotBoundException ex){
@@ -34,13 +35,12 @@ public class SetUpClientImpl implements SetUpClient {
 	}
 	/**
 	 * Enable a user to create a new quiz 
-	 * @param quizName for the quiz
-	 * @param questionSet a set of questions
-	 * @param possibleAnswers a set of possible answers for each question
-	 * @return quizId a quiz game id
+	 * @throws RemoteException 
+	 * 
 	 */
-		public int createNewQuiz(String quizName,List<Question> questionList){
-			return 0;
+		private void createNewQuiz(QuizGameServer quizGameService) throws RemoteException{
+			QuizQuestions newQuestions = quizGameService.createEmptyQuizQuestionsList();
+			
 		}
 
 	public String closeQuiz(int quizId) {

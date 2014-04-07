@@ -42,10 +42,24 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 		return emptyQuizQuestions;
 	}
 	/**
-	 * 
+	 * Checks that a quiz questions object is complete and adds it to the questionsList
+	 * @param fullQuizQuestions a complete quiz questions object with quizName set and at least one question
 	 */
-	public void setQuizQuesitonsList(QuizQuestions fullQuizQuestions){
-		questionsList.add(fullQuizQuestions);
+	public void addQuizQuesitonsToList(QuizQuestions fullQuizQuestions){
+		try{
+			if(fullQuizQuestions.getQuizName() == null){
+				System.out.println("Error - the quiz name hasn't been set, this QuizQuestions object hasn't been completely set up yet!");
+				return;
+			} else if(fullQuizQuestions.getQuestion(1) == null){
+				System.out.println("Error - the quiz questions haven't been set, this QuizQuestions object hasn't been completely set up yet!");
+				return;
+			} else {
+			questionsList.add(fullQuizQuestions);
+			}
+		} catch (NullPointerException ex){
+			ex.printStackTrace();
+			System.out.println("Error - The quiz questions you passed were null!");
+		}
 	}
 	/**
 	 * Creates a new empty quiz with no player answers on it
