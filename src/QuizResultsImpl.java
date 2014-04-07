@@ -5,14 +5,14 @@ import java.util.List;
 
 public class QuizResultsImpl implements QuizResults, Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private int quizId;
 	private List<Integer> userResultsList;
 	private int highScore;
 	private String currentWinner;
-	
+
 	public QuizResultsImpl(int quizId){
 		this.quizId = quizId;
 		userResultsList = new ArrayList<Integer>();
@@ -39,7 +39,7 @@ public class QuizResultsImpl implements QuizResults, Serializable {
 	 */
 	public void addUserResult(int score){
 		if(score > highScore){
-			System.out.println("Congratulations, you currently have the highest score for this quiz!  Please key in your name: ");
+			System.out.println("Congratulations, you currently have the highest score for this quiz! Please key in your name: ");
 			currentWinner = System.console().readLine();
 			highScore = score;
 			userResultsList.add(score);
@@ -48,8 +48,8 @@ public class QuizResultsImpl implements QuizResults, Serializable {
 		}
 	}
 	/**
-	 * Returns the highest score on the quiz 
-	 * @return int showing the highest score on the quiz 
+	 * Returns the highest score on the quiz
+	 * @return int showing the highest score on the quiz
 	 */
 	public int getHighScore() {
 		return highScore;

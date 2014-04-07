@@ -9,10 +9,16 @@ public interface QuizGameServer extends Remote {
 	 */
 	String echo(String s) throws RemoteException;
 	/**
-	 * Create a new empty quiz and allocate it a quiz ID number
-	 * @return Quiz a new empty quiz
+	 * Creates a new empty list of quiz questions and allocate it a random quiz ID number
+	 * @return QuizQuestions a new empty quiz questions list
 	 */
-	Quiz createEmptyQuiz() throws RemoteException;
+	QuizQuestions createEmptyQuizQuestionsList() throws RemoteException;
+	/**
+	 * Creates a new empty quiz with no player answers on it
+	 * @param  quizQuestions a set of quiz questions with name & ID information included
+	 * @return Quiz a quiz object to record player answers on 
+	 */
+	Quiz createQuiz(QuizQuestions quizQuestions);
 	/**
 	 * Adds a full quiz to the quizList
 	 * @param fullQuiz a quiz that has been set up with all of its questions and suggested answers

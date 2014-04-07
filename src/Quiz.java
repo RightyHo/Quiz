@@ -1,18 +1,9 @@
-import java.util.List;
-
 public interface Quiz {
 	/**
-	 * Add a question to the quiz
-	 * Checks that there are no duplicates in the question list
-	 * @param question object that contains possible answers and the correct answer
+	 * Returns quiz questions
+	 * @return QuizQuestions an object containing a quiz questions list as well as name, ID, and answer information
 	 */
-	void addQuestion(Question question);
-	/**
-	 * Returns question linked to the question number in the quiz
-	 * @param questionNumber of the the quesion in the quiz
-	 * @return the requested question
-	 */
-	Question getQuestion(int questionNumber);
+	QuizQuestions getQuizQuestions();
 	/**
 	 * Records player answers in the playerAnswers list
 	 * @param questionNumber connects the given answer to the relevant question in the quiz
@@ -22,58 +13,70 @@ public interface Quiz {
 	/**
 	 * Returns the answer in the playerAnswers list
 	 * @param questionNumber the question number of the player answer we are looking for
-	 * @return char of the player answer stored for the question number 
+	 * @return char of the player answer stored for the question number
 	 */
-	Character getPlayerAnswer(int questionNumber);
+	Character getPlayerAnswer(int questionNumber);	
+	/**
+	 * Calculates and returns the score of a completed quiz
+	 * updates results list with the score
+	 * @return the number of correct answers
+	 */
+	int calculatePlayerScore();
+	/**
+	 * Add a question to the quiz
+	 * Checks that there are no duplicates in the question list
+	 * @param question object that contains possible answers and the correct answer
+	 */
+	//void addQuestion(Question question);
+	/**
+	 * Returns question linked to the question number in the quiz
+	 * @param questionNumber of the the quesion in the quiz
+	 * @return the requested question
+	 */
+	//Question getQuestion(int questionNumber);
 	/**
 	 * Returns quiz ID
 	 * @return quizId
 	 */
-	int getQuizId();
+	//int getQuizId();
 	/**
 	 * Sets the quiz name
-	 * @param quizName String 
+	 * @param quizName String
 	 */
-	void setQuizName(String quizName);
+	//void setQuizName(String quizName);
 	/**
 	 * Returns the quiz name
 	 * @return String of the quiz name
 	 */
-	String getQuizName();
+	//String getQuizName();
 	/**
 	 * Sets the highscore for this quiz
 	 * @param highScore new high score for this quiz
 	 */
-	void setHighScore(int highScore);
+	//void setHighScore(int highScore);
 	/**
 	 * Returns the high score for this quiz
 	 * @return highScore
 	 */
-	int getHighScore();
+	//int getHighScore();
 	/**
 	 * Sets the name of the person with the current highest score for this quiz
 	 * @param currentWinner the name of the person with the current highest score for this quiz
 	 */
-	void setCurrentWinner(String currentWinner);
+	//void setCurrentWinner(String currentWinner);
 	/**
 	 * Gets the name of the person with the current highest score for this quiz
 	 * @return currentWinner the name of the person with the current highest score for this quiz
 	 */
-	String getCurrentWinner();
+	//String getCurrentWinner();
 	/**
 	 * Returns the number of questions in the quiz
 	 * @return int the number of questions in the quiz
 	 */
-	int getNumberOfQuestions();
-	/**
-	 * Calculates and returns the score of a completed quiz
-	 * updates results list with the score
-	 * @return the number of correct answers 
-	 */
-	int calculatePlayerScore();
+	//int getNumberOfQuestions();
 	/**
 	 * Returns a list of the results of the various user attempts on this quiz
 	 * @return integer list representing the results all of the various user attempts on this quiz
 	 */
-	List<Integer> getResultsList();
+	//List<Integer> getResultsList();
 }

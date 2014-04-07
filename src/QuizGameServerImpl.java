@@ -15,10 +15,13 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	private static final long serialVersionUID = 1L;
 	private List<Quiz> quizList;
 	private List<QuizResults> resultsList;
+	private List<QuizQuestions> questionsList;
 //	private List<Character> playerAnswers;		//stores answers to questions by players in the order they are received
 	
 	public QuizGameServerImpl() throws RemoteException {
 		quizList = new ArrayList<Quiz>();
+		resultsList = new ArrayList<QuizResults>();
+		questionsList = new ArrayList<QuizQuestions>();
 	}
 	@Override
 	public String echo(String s){
@@ -26,31 +29,46 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 		return s;
 	}
 	/**
-	 * Create a new empty quiz and allocate it a random quiz ID number
-	 * @return Quiz a new empty quiz
+	 * Creates a new empty list of quiz questions and allocate it a random quiz ID number
+	 * @return QuizQuestions a new empty quiz questions list
 	 */
-	public Quiz createEmptyQuiz() throws RemoteException{
+	public QuizQuestions createEmptyQuizQuestionsList() throws RemoteException{
 		//Create random quiz ID number 1 - 100
 		double randomNumber = Math.random();
 		double d = randomNumber * 100;
 		//Type cast double to int
 		int quizId = (int)d + 1;
-		Quiz emptyQuiz = new QuizImpl(quizId);
-		return emptyQuiz;
+		QuizQuestions emptyQuizQuestions = new QuizQuestionsImpl(quizId);
+		return emptyQuizQuestions;
 	}
 	/**
-	 * Adds a full quiz to the quizList
+	 * 
+	 */
+	public void setQuizQuesitonsList(QuizQuestions fullQuizQuestions){
+		questionsList.add(fullQuizQuestions);
+	}
+	/**
+	 * Creates a new empty quiz with no player answers on it
+	 * @param  quizQuestions a set of quiz questions with name & ID information included
+	 * @return Quiz a quiz object to record player answers on 
+	 */
+	public Quiz createQuiz(QuizQuestions quizQuestions){
+		Quiz unansweredQuiz  = new QuizImpl(quizQuestions);
+		return unansweredQuiz;
+	}
+	/**
+	 * Adds a full quiz to the quizList and also adds a corresponding QuizResults object to the resultsList
 	 * @param fullQuiz a quiz that has been set up with all of its questions and suggested answers
-	 * @return 
-	 * @return Results creates and returns a new QuizResults object to store the quiz results	 
+	 * @return QuizResults creates and returns a new QuizResults object to store the quiz results
 	 */
 	public QuizResults addFullQuizToList(Quiz fullQuiz) throws RemoteException{
 		QuizResults quizResults = null;
 		//check that quiz has been set up correctly
-		if(fullQuiz.getQuizName()!=null){
-			if(fullQuiz.getQuestion(1)!= null){
+		if(fullQuiz.getQuizQuestions().getQuizName()!=null){
+			if(fullQuiz.getQuizQuestions().getQuestion(1)!= null){
 				quizList.add(fullQuiz);
-				quizResults = new QuizResultsImpl(fullQuiz.getQuizId());
+				quizResults = new QuizResultsImpl(fullQuiz.getQuizQuestions().getQuizId());
+				resultsList.add(quizResults);
 			}
 		}
 		return quizResults;
@@ -62,17 +80,24 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	 * @return winner name of the player who achieved the highest score on this quiz or null if the quiz ID is not valid
 	 */
 	public String closeQuizGame(int id) throws RemoteException{
-		String result = null;
+		String qWinner = null;
+		String qName = null;
+		int qScore = 0;
+		
+		for(int i=0;i<resultsList.size();i++){
+			if(resultsList.get(i).getQuizId() == id){
+				qWinner = resultsList.get(i).getCurrentWinner();
+				qScore = resultsList.get(i).getHighScore();
+			}
+		}
 		for(int i=0;i<quizList.size();i++){
-			if(quizList.get(i).getQuizId() == id){
-				result = quizList.get(i).getCurrentWinner();
-				String qName = quizList.get(i).getQuizName();
-				int qScore = quizList.get(i).getHighScore();
-				System.out.println("The winner of the "+ qName + " quiz is " + result + " with a high score of " + qScore);
+			if(quizList.get(i).getQuizQuestions().getQuizId() == id){
+				qName = quizList.get(i).getQuizQuestions().getQuizName();
 				quizList.remove(i);
 			}
 		}
-		return result;
+		System.out.println("The winner of the "+ qName + " quiz is " + qWinner + " with a high score of " + qScore);
+		return qWinner;
 	}
 	/**
 	 * Calculates and returns the score of a completed quiz
@@ -104,7 +129,7 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 		List<String> result = new ArrayList<String>();
 		try {
 			for(Quiz q : quizList){
-				result.add(q.getQuizName());
+				result.add(q.getQuizQuestions().getQuizName());
 			}
 		} catch(NullPointerException ex){
 			ex.printStackTrace();
@@ -124,7 +149,7 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 			return result;
 		} else {
 			for(Quiz q : quizList){
-				if(q.getQuizName().equals(quizName)){
+				if(q.getQuizQuestions().getQuizName().equals(quizName)){
 					result = q;
 					return result;
 				}
