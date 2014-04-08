@@ -40,6 +40,13 @@ public class SetUpClientImpl implements SetUpClient {
 	 */
 		private void createNewQuiz(QuizGameServer quizGameService) throws RemoteException{
 			QuizQuestions newQuestions = quizGameService.createEmptyQuizQuestionsList();
+			System.out.println("CREATE A NEW QUIZ!");
+			System.out.println("First please key in the name of the new quiz: ");
+			String quizName = System.console().readLine();
+			newQuestions.setQuizName(quizName);
+			
+			Question aQuestion = new QuestionImpl();
+			newQuestions.addQuestion(aQuestion);
 			
 		}
 

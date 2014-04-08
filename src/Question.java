@@ -1,15 +1,5 @@
 public interface Question {
 	/**
-	 * Sets question ID number
-	 * @param question ID number
-	 */
-	void setQuestionId(int questionId);
-	/**
-	 * Returns question ID number
-	 * @return question ID number
-	 */
-	int getQuestionId();
-	/**
 	 * Sets the question string
 	 * @param question a string
 	 */

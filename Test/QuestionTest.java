@@ -16,7 +16,7 @@ public class QuestionTest {
 	@Before
 	public void setUp() throws Exception {
 		q1 = new QuestionImpl();
-		q2 = new QuestionImpl(845,"Whats your favourite food?","Silverbeet","Shrimp","Mushroom","Lamb",'d');
+		q2 = new QuestionImpl("Whats your favourite food?","Silverbeet","Shrimp","Mushroom","Lamb",'d');
 		strOutput = "";
 		strExpected = "";
 		intOutput = 0;
@@ -27,7 +27,7 @@ public class QuestionTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
+/*	@Test
 	public void testSetQuestionId() {
 		q1.setQuestionId(343);
 		intOutput = q1.getQuestionId();
@@ -41,7 +41,7 @@ public class QuestionTest {
 		intExpected = 845;
 		assertEquals(intExpected,intOutput);
 	}
-
+*/
 	@Test
 	public void testSetQuestion() {
 		q1.setQuestion("Will New Zealand win the 2014 T20 world cup?");

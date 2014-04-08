@@ -6,7 +6,6 @@ public class QuestionImpl implements Question, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int questionId;
 	private String question;
 	private String answerA;
 	private String answerB;
@@ -15,7 +14,6 @@ public class QuestionImpl implements Question, Serializable {
 	private char correctAnswer;
 
 	public QuestionImpl(){
-		questionId = 0;
 		question = "";
 		answerA = "";
 		answerB = "";
@@ -23,28 +21,13 @@ public class QuestionImpl implements Question, Serializable {
 		answerD = "";
 		correctAnswer = '?';
 	}
-	public QuestionImpl(int questionId,String question,String answerA,String answerB,String answerC,String answerD,char correctAnswer){
-		this.questionId = questionId;
+	public QuestionImpl(String question,String answerA,String answerB,String answerC,String answerD,char correctAnswer){
 		this.question = question;
 		this.answerA = answerA;
 		this.answerB = answerB;
 		this.answerC = answerC;
 		this.answerD = answerD;
 		this.correctAnswer = correctAnswer;
-	}
-	/**
-	 * Sets question ID number
-	 * @param question ID number
-	 */
-	public void setQuestionId(int questionId){
-		this.questionId = questionId;
-	}
-	/**
-	 * Returns question ID number
-	 * @return question ID number
-	 */
-	public int getQuestionId(){
-		return questionId;
 	}
 	/**
 	 * Sets the question string
