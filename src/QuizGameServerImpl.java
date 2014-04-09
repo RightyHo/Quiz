@@ -29,20 +29,36 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 		return s;
 	}
 	/**
-	 * 
+	 * Creates a new questions list object and populates the object with the questions, answers and quiz name
+	 * @param quizName 
+	 * @param question 
+	 * @param answerA possible answer
+	 * @param answerB possible answer
+	 * @param answerC possible answer
+	 * @param answerD possible answer
+	 * @param correctAnswer 
+	 * @return String of the question originally passed as a parameter  
 	 */
 	public String populateQuestion(String quizName,String question,String answerA,String answerB,String answerC,String answerD,char correctAnswer){
+		Question newQuestion = new QuestionImpl(question,answerA,answerB,answerC,answerD,correctAnswer);
+		//Check if the a quiz question list with this quizName already exists
+		for(QuizQuestions qq : questionsList){
+			if(qq.getQuizName().equals(quizName)){
+				qq.addQuestion(newQuestion);
+				return question;
+			}
+		}
 		QuizQuestions newQuizQuestionsList = createQuizQuestionsList();
 		newQuizQuestionsList.setQuizName(quizName);
-		Question newQuestion = new QuestionImpl(question,answerA,answerB,answerC,answerD,correctAnswer);
 		newQuizQuestionsList.addQuestion(newQuestion);
+		addQuizQuestionsToList(newQuizQuestionsList);
 		return question;
 	}
 	/**
 	 * Creates a new empty list of quiz questions and allocate it a random quiz ID number
 	 * @return QuizQuestions a new empty quiz questions list
 	 */
-	public QuizQuestions createQuizQuestionsList() throws RemoteException{
+	public QuizQuestions createQuizQuestionsList(){
 		//Create random quiz ID number 1 - 100
 		double randomNumber = Math.random();
 		double d = randomNumber * 100;
@@ -55,7 +71,7 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	 * Checks that a quiz questions object is complete and adds it to the questionsList
 	 * @param fullQuizQuestions a complete quiz questions object with quizName set and at least one question
 	 */
-	public void addQuizQuesitonsToList(QuizQuestions fullQuizQuestions){
+	public void addQuizQuestionsToList(QuizQuestions fullQuizQuestions){
 		try{
 			if(fullQuizQuestions.getQuizName() == null){
 				System.out.println("Error - the quiz name hasn't been set, this QuizQuestions object hasn't been completely set up yet!");

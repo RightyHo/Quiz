@@ -4,6 +4,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -88,6 +89,8 @@ public class SetUpClientImpl implements SetUpClient {
 						correctAnswer == 'a' ||correctAnswer == 'b' ||correctAnswer == 'c' ||correctAnswer == 'd'){
 					String outputQ = quizGameService.populateQuestion(quizName,inputQ,answerA,answerB,answerC,answerD,correctAnswer);
 					System.out.println("QUESTION: " + outputQ + " has been added to the list.");
+				} else {
+					System.out.println("Error - the letter you input was out of bounds.  Please re-enter the question...");
 				}
 			}
 		}
@@ -97,3 +100,31 @@ public class SetUpClientImpl implements SetUpClient {
 		return null;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
