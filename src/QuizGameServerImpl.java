@@ -16,8 +16,8 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	private List<Quiz> quizList;
 	private List<QuizResults> resultsList;
 	private List<QuizQuestions> questionsList;
-//	private List<Character> playerAnswers;		//stores answers to questions by players in the order they are received
-	
+	//	private List<Character> playerAnswers;		//stores answers to questions by players in the order they are received
+
 	public QuizGameServerImpl() throws RemoteException {
 		quizList = new ArrayList<Quiz>();
 		resultsList = new ArrayList<QuizResults>();
@@ -29,10 +29,20 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 		return s;
 	}
 	/**
+	 * 
+	 */
+	public String populateQuestion(String quizName,String question,String answerA,String answerB,String answerC,String answerD,char correctAnswer){
+		QuizQuestions newQuizQuestionsList = createQuizQuestionsList();
+		newQuizQuestionsList.setQuizName(quizName);
+		Question newQuestion = new QuestionImpl(question,answerA,answerB,answerC,answerD,correctAnswer);
+		newQuizQuestionsList.addQuestion(newQuestion);
+		return question;
+	}
+	/**
 	 * Creates a new empty list of quiz questions and allocate it a random quiz ID number
 	 * @return QuizQuestions a new empty quiz questions list
 	 */
-	public QuizQuestions createEmptyQuizQuestionsList() throws RemoteException{
+	public QuizQuestions createQuizQuestionsList() throws RemoteException{
 		//Create random quiz ID number 1 - 100
 		double randomNumber = Math.random();
 		double d = randomNumber * 100;
@@ -54,7 +64,7 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 				System.out.println("Error - the quiz questions haven't been set, this QuizQuestions object hasn't been completely set up yet!");
 				return;
 			} else {
-			questionsList.add(fullQuizQuestions);
+				questionsList.add(fullQuizQuestions);
 			}
 		} catch (NullPointerException ex){
 			ex.printStackTrace();
@@ -97,7 +107,7 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 		String qWinner = null;
 		String qName = null;
 		int qScore = 0;
-		
+
 		for(int i=0;i<resultsList.size();i++){
 			if(resultsList.get(i).getQuizId() == id){
 				qWinner = resultsList.get(i).getCurrentWinner();
@@ -184,13 +194,13 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 			out.writeObject(quizList);
 			System.out.printf("Serialized data is saved in quizFile.ser");
 		} catch(FileNotFoundException ex) {
-		// This happens if file does not exist and cannot be created, 
-		// or if it exists, but is not writable 
+			// This happens if file does not exist and cannot be created, 
+			// or if it exists, but is not writable 
 			System.out.println("Cannot write to file " + file + ".");
 		} catch(IOException ex) { 
 			ex.printStackTrace();
-	    } finally {
-	        closeWriter(out,fileOut);
+		} finally {
+			closeWriter(out,fileOut);
 		}
 	}
 	private void closeWriter(ObjectOutputStream out,FileOutputStream fileOut) { 
@@ -207,34 +217,3 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

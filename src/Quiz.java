@@ -1,3 +1,4 @@
+
 public interface Quiz {
 	/**
 	 * Returns quiz questions

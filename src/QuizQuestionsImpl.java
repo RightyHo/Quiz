@@ -6,14 +6,13 @@ public class QuizQuestionsImpl implements QuizQuestions {
 	private List<Question> questionList;
 	private int quizId;
 	private String quizName;
-	
+
 	public QuizQuestionsImpl(int id){
 		questionList = new ArrayList<Question>();
 		quizId = id;
 		quizName = null;
 	}
-	
-	
+
 	public int getQuizId() {
 		return quizId;
 	}
@@ -32,7 +31,7 @@ public class QuizQuestionsImpl implements QuizQuestions {
 	public void setQuestionList(List<Question> questionList) {
 		this.questionList = questionList;
 	}
-	
+
 	/**
 	 * Add a question to the quiz
 	 * Checks that there are no duplicates in the question list
@@ -73,4 +72,3 @@ public class QuizQuestionsImpl implements QuizQuestions {
 		}
 	}
 }
-

@@ -84,24 +84,5 @@ public class QuestionImpl implements Question, Serializable {
 	public char getCorrectAnswer(){
 		return correctAnswer;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

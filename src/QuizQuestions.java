@@ -2,17 +2,17 @@ import java.util.List;
 
 
 public interface QuizQuestions {
-	
+
 	int getQuizId();
-	
+
 	void setQuizId(int quizId);
-	
+
 	String getQuizName();
-	
+
 	void setQuizName(String quizName);
-	
+
 	List<Question> getQuestionList();
-	
+
 	void setQuestionList(List<Question> questionList);
 	/**
 	 * Add a question to the quiz

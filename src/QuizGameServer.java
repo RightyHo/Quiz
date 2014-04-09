@@ -1,4 +1,3 @@
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -53,6 +52,5 @@ public interface QuizGameServer extends Remote {
 	/**
 	 * Stores the high score of the quiz and the name of the current winner on disk
 	 */
-	void flush() throws RemoteException;
-	
+	void flush() throws RemoteException;	
 }
