@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SetUpClientImpl implements SetUpClient {
+public class SetUpClientImpl {
 	String quizName;
 	List<String> quizQuestions;
 	String answerA;
@@ -44,9 +44,29 @@ public class SetUpClientImpl implements SetUpClient {
 
 			String receivedEcho = quizGameService.echo(str);
 			System.out.println("this is the received echo:  " + receivedEcho);
-
-			createNewQuiz(quizGameService);
-
+			System.out.println("QUIZ SET UP:");
+			boolean finished = false;
+			int selection = 0;
+			while(!finished){
+				System.out.println("Please select an operation: ");
+				System.out.println("To create a new quiz enter (1): ");
+				System.out.println("To close an existing quiz enter (2): ");
+				System.out.println("To exit this menu please enter (3): ");
+				selection = Integer.parseInt(System.console().readLine());
+				switch(selection){
+				case 1:
+					createNewQuiz(quizGameService);
+					break;
+				case 2:
+					System.out.println("Please key in the ID number of the quiz you wish to close: ");
+					int id = Integer.parseInt(System.console().readLine());
+					closeQuiz(quizGameService,id);
+					break;
+				case 3:
+					finished = true;
+					break;
+				}
+			}
 		} catch (MalformedURLException ex){
 			ex.printStackTrace();
 		} catch (NotBoundException ex){
@@ -60,7 +80,7 @@ public class SetUpClientImpl implements SetUpClient {
 	 * @throws RemoteException 
 	 * 
 	 */
-	private void createNewQuiz(QuizGameServer quizGameService){
+	private void createNewQuiz(QuizGameServer quizGameService) throws RemoteException{
 		System.out.println("CREATE A NEW QUIZ:");
 		System.out.println("Please key in the name of the new quiz: ");
 		quizName = System.console().readLine();
@@ -96,8 +116,9 @@ public class SetUpClientImpl implements SetUpClient {
 		}
 	}
 
-	public String closeQuiz(int quizId) {
-		return null;
+	private void closeQuiz(QuizGameServer quizGameService,int quizId) throws RemoteException {
+		String winner = quizGameService.closeQuizGame(quizId);
+		System.out.println("SET-UP CLIENT: The Winner was " + winner);
 	}
 }
 

@@ -16,15 +16,23 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	private List<Quiz> quizList;
 	private List<QuizResults> resultsList;
 	private List<QuizQuestions> questionsList;
-	//	private List<Character> playerAnswers;		//stores answers to questions by players in the order they are received
+	private InputOutput io;
+	private static final String fileName = "quizFile.ser";
 
 	public QuizGameServerImpl() throws RemoteException {
 		quizList = new ArrayList<Quiz>();
-		resultsList = new ArrayList<QuizResults>();
-		questionsList = new ArrayList<QuizQuestions>();
+		io = new InputOutputImpl(fileName);
+		if(io.fileAlreadyExists()){
+			Object[] obj = io.readFromDisk();
+			resultsList = (List<QuizResults>) obj[0];
+			questionsList = (List<QuizQuestions>) obj[1];
+		} else {
+			resultsList = new ArrayList<QuizResults>();
+			questionsList = new ArrayList<QuizQuestions>();
+		}
 	}
 	@Override
-	public String echo(String s){
+	public String echo(String s) throws RemoteException{
 		System.out.println("Replied to a client saying '" + s + "'");
 		return s;
 	}
@@ -39,7 +47,7 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	 * @param correctAnswer 
 	 * @return String of the question originally passed as a parameter  
 	 */
-	public String populateQuestion(String quizName,String question,String answerA,String answerB,String answerC,String answerD,char correctAnswer){
+	public String populateQuestion(String quizName,String question,String answerA,String answerB,String answerC,String answerD,char correctAnswer) throws RemoteException{
 		Question newQuestion = new QuestionImpl(question,answerA,answerB,answerC,answerD,correctAnswer);
 		//Check if the a quiz question list with this quizName already exists
 		for(QuizQuestions qq : questionsList){
@@ -58,7 +66,7 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	 * Creates a new empty list of quiz questions and allocate it a random quiz ID number
 	 * @return QuizQuestions a new empty quiz questions list
 	 */
-	public QuizQuestions createQuizQuestionsList(){
+	public QuizQuestions createQuizQuestionsList() throws RemoteException{
 		//Create random quiz ID number 1 - 100
 		double randomNumber = Math.random();
 		double d = randomNumber * 100;
@@ -71,7 +79,7 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	 * Checks that a quiz questions object is complete and adds it to the questionsList
 	 * @param fullQuizQuestions a complete quiz questions object with quizName set and at least one question
 	 */
-	public void addQuizQuestionsToList(QuizQuestions fullQuizQuestions){
+	public void addQuizQuestionsToList(QuizQuestions fullQuizQuestions) throws RemoteException{
 		try{
 			if(fullQuizQuestions.getQuizName() == null){
 				System.out.println("Error - the quiz name hasn't been set, this QuizQuestions object hasn't been completely set up yet!");
@@ -92,7 +100,7 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	 * @param  quizQuestions a set of quiz questions with name & ID information included
 	 * @return Quiz a quiz object to record player answers on 
 	 */
-	public Quiz createQuiz(QuizQuestions quizQuestions){
+	public Quiz createQuiz(QuizQuestions quizQuestions) throws RemoteException{
 		Quiz unansweredQuiz  = new QuizImpl(quizQuestions);
 		return unansweredQuiz;
 	}
@@ -137,6 +145,7 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 			}
 		}
 		System.out.println("The winner of the "+ qName + " quiz is " + qWinner + " with a high score of " + qScore);
+		flush();
 		return qWinner;
 	}
 	/**
@@ -196,5 +205,12 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 			}
 		}
 		return result;
+	}
+	/**
+	 * Saves the results list and questions list to disk
+	 * @throws RemoteException
+	 */
+	public void flush() throws RemoteException{
+		io.saveToDisk(resultsList, questionsList);
 	}
 }

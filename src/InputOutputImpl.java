@@ -10,8 +10,11 @@ import java.util.List;
 
 
 public class InputOutputImpl implements InputOutput {
-	private String fileName = "quizFile.ser";
+	private String fileName;
 	
+	public InputOutputImpl(String fileName){
+		this.fileName = fileName;
+	}
 	/**
 	 * File name setter
 	 * @param fileName
