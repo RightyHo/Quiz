@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry including="Answer.java|AnswerImpl.java|Player.java|PlayerClient.java|PlayerClientImpl.java|Question.java|QuestionImpl.java|Quiz.java|QuizGameServer.java|QuizGameServerImpl.java|QuizGameServerLauncher.java|QuizImpl.java|QuizQuestions.java|QuizQuestionsImpl.java|QuizResults.java|QuizResultsImpl.java|SetUpClient.java|SetUpClientImpl.java" kind="src" path="src"/>
+	<classpathentry including="Answer.java|AnswerImpl.java|InputOutput.java|InputOutputImpl.java|Player.java|PlayerClient.java|PlayerClientImpl.java|Question.java|QuestionImpl.java|Quiz.java|QuizGameServer.java|QuizGameServerImpl.java|QuizGameServerLauncher.java|QuizImpl.java|QuizQuestions.java|QuizQuestionsImpl.java|QuizResults.java|QuizResultsImpl.java|SetUpClient.java|SetUpClientImpl.java" kind="src" path="src"/>
 	<classpathentry kind="src" path="Test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>

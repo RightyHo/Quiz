@@ -197,39 +197,4 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 		}
 		return result;
 	}
-	/**
-	 * Stores the high score of the quiz and the name of the current winner on disk
-	 */
-	public void flush() throws RemoteException{
-		File file = new File("quizFile.ser"); 
-		ObjectOutputStream out = null;
-		FileOutputStream fileOut = null;
-		try {
-			fileOut = new FileOutputStream(file);
-			out = new ObjectOutputStream(fileOut);
-			out.writeObject(quizList);
-			System.out.printf("Serialized data is saved in quizFile.ser");
-		} catch(FileNotFoundException ex) {
-			// This happens if file does not exist and cannot be created, 
-			// or if it exists, but is not writable 
-			System.out.println("Cannot write to file " + file + ".");
-		} catch(IOException ex) { 
-			ex.printStackTrace();
-		} finally {
-			closeWriter(out,fileOut);
-		}
-	}
-	private void closeWriter(ObjectOutputStream out,FileOutputStream fileOut) { 
-		try {
-			if(out != null) { 
-				out.close();
-			}
-			if(fileOut != null) { 
-				fileOut.close();
-			}
-		} catch(IOException ex) {
-			ex.printStackTrace();
-		}
-	}
-
 }

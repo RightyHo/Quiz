@@ -67,8 +67,4 @@ public interface QuizGameServer extends Remote {
 	 * @return the selected quiz or null if not found
 	 */
 	Quiz getQuiz(String quizName) throws RemoteException;
-	/**
-	 * Stores the high score of the quiz and the name of the current winner on disk
-	 */
-	public void flush() throws RemoteException;
 	}
