@@ -49,11 +49,13 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	 */
 	public String populateQuestion(String quizName,String question,String answerA,String answerB,String answerC,String answerD,char correctAnswer) throws RemoteException{
 		Question newQuestion = new QuestionImpl(question,answerA,answerB,answerC,answerD,correctAnswer);
-		//Check if the a quiz question list with this quizName already exists
-		for(QuizQuestions qq : questionsList){
-			if(qq.getQuizName().equals(quizName)){
-				qq.addQuestion(newQuestion);
-				return question;
+		//Check if a quiz question list with this quizName already exists
+		if(questionsList != null){
+			for(QuizQuestions qq : questionsList){
+				if(qq.getQuizName().equals(quizName)){
+					qq.addQuestion(newQuestion);
+					return question;
+				}
 			}
 		}
 		QuizQuestions newQuizQuestionsList = createQuizQuestionsList();
@@ -81,18 +83,20 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 	 */
 	public void addQuizQuestionsToList(QuizQuestions fullQuizQuestions) throws RemoteException{
 		try{
-			if(fullQuizQuestions.getQuizName() == null){
-				System.out.println("Error - the quiz name hasn't been set, this QuizQuestions object hasn't been completely set up yet!");
-				return;
-			} else if(fullQuizQuestions.getQuestion(1) == null){
-				System.out.println("Error - the quiz questions haven't been set, this QuizQuestions object hasn't been completely set up yet!");
-				return;
-			} else {
-				questionsList.add(fullQuizQuestions);
+			if(fullQuizQuestions != null){
+				if(fullQuizQuestions.getQuizName() == null){
+					System.out.println("Error - the quiz name hasn't been set, this QuizQuestions object hasn't been completely set up yet!");
+					return;
+				} else if(fullQuizQuestions.getQuestion(1) == null){
+					System.out.println("Error - the quiz questions haven't been set, this QuizQuestions object hasn't been completely set up yet!");
+					return;
+				} else {
+					questionsList.add(fullQuizQuestions);
+				}
 			}
 		} catch (NullPointerException ex){
-			ex.printStackTrace();
 			System.out.println("Error - The quiz questions you passed were null!");
+			ex.printStackTrace();
 		}
 	}
 	/**
@@ -131,17 +135,21 @@ public class QuizGameServerImpl extends UnicastRemoteObject implements QuizGameS
 		String qWinner = null;
 		String qName = null;
 		int qScore = 0;
-
-		for(int i=0;i<resultsList.size();i++){
-			if(resultsList.get(i).getQuizId() == id){
-				qWinner = resultsList.get(i).getCurrentWinner();
-				qScore = resultsList.get(i).getHighScore();
+		
+		if(resultsList != null){
+			for(int i=0;i<resultsList.size();i++){
+				if(resultsList.get(i).getQuizId() == id){
+					qWinner = resultsList.get(i).getCurrentWinner();
+					qScore = resultsList.get(i).getHighScore();
+				}
 			}
 		}
-		for(int i=0;i<quizList.size();i++){
-			if(quizList.get(i).getQuizQuestions().getQuizId() == id){
-				qName = quizList.get(i).getQuizQuestions().getQuizName();
-				quizList.remove(i);
+		if(quizList != null){
+			for(int i=0;i<quizList.size();i++){
+				if(quizList.get(i).getQuizQuestions().getQuizId() == id){
+					qName = quizList.get(i).getQuizQuestions().getQuizName();
+					quizList.remove(i);
+				}
 			}
 		}
 		System.out.println("The winner of the "+ qName + " quiz is " + qWinner + " with a high score of " + qScore);

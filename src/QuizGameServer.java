@@ -1,5 +1,6 @@
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface QuizGameServer extends Remote {
@@ -67,4 +68,9 @@ public interface QuizGameServer extends Remote {
 	 * @return the selected quiz or null if not found
 	 */
 	Quiz getQuiz(String quizName) throws RemoteException;
-	}
+	/**
+	 * Saves the results list and questions list to disk
+	 * @throws RemoteException
+	 */
+	void flush() throws RemoteException;
+}
