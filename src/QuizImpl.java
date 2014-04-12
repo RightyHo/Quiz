@@ -89,7 +89,9 @@ public class QuizImpl implements Quiz,Serializable {
 			System.out.println("questions list " + quizQuestions.getQuestionList().size());
 			if(playerAnswers.size() == quizQuestions.getQuestionList().size()){
 				for(int i=0;i<quizQuestions.getQuestionList().size();i++){	
-					if(quizQuestions.getQuestionList().get(i).getCorrectAnswer() == playerAnswers.get(i)){
+					System.out.println("player answer " + i + " is " + playerAnswers.get(i));
+					System.out.println("correct answer " + i + " is " + quizQuestions.getQuestion(i).getCorrectAnswer());
+					if(quizQuestions.getQuestion(i).getCorrectAnswer() == playerAnswers.get(i)){
 						playerScore++;
 					}
 				}
@@ -99,6 +101,7 @@ public class QuizImpl implements Quiz,Serializable {
 				return -1;
 			}
 		} catch(NullPointerException ex){
+			System.out.println("we got a null pointer on our hands!");
 			ex.printStackTrace();
 		} catch (IndexOutOfBoundsException ex){
 			ex.printStackTrace();

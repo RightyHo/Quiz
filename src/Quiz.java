@@ -23,6 +23,14 @@ public interface Quiz {
 	 * @return the number of correct answers
 	 */
 	int calculatePlayerScore();
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Add a question to the quiz
 	 * Checks that there are no duplicates in the question list

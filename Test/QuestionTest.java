@@ -27,21 +27,6 @@ public class QuestionTest {
 	public void tearDown() throws Exception {
 	}
 
-/*	@Test
-	public void testSetQuestionId() {
-		q1.setQuestionId(343);
-		intOutput = q1.getQuestionId();
-		intExpected = 343;
-		assertEquals(intExpected,intOutput);
-	}
-
-	@Test
-	public void testGetQuestionId() {
-		intOutput = q2.getQuestionId();
-		intExpected = 845;
-		assertEquals(intExpected,intOutput);
-	}
-*/
 	@Test
 	public void testSetQuestion() {
 		q1.setQuestion("Will New Zealand win the 2014 T20 world cup?");

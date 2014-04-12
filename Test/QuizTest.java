@@ -1,13 +1,18 @@
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
+
+import static org.mockito.Mockito.*;
 
 
 public class QuizTest {
 	Quiz testQ;
+	QuizQuestions mockedQQ;
 	int questionNumber;
 	char charOutput;
 	char charExpected;
@@ -18,7 +23,8 @@ public class QuizTest {
 
 	@Before
 	public void setUp() throws Exception {
-		testQ = new QuizImpl(707);
+		mockedQQ = mock(QuizQuestions.class);
+		testQ = new QuizImpl(mockedQQ);
 		charOutput = '?';
 		charExpected = '?';
 		intOutput = 0;
@@ -30,16 +36,14 @@ public class QuizTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-	
 	/**
-	 * tests addQuestion() & getQuestion() methods
+	 * tests getQuizQuestions() method
 	 */
 	@Test
-	public void testAddQuestion() {
-		Question q = new QuestionImpl();
-		testQ.addQuestion(q);
-		Question outputQuestion = testQ.getQuestion(1);
-		assertNotNull(outputQuestion);
+	public void testGetQuizQuestions(){
+		QuizQuestions qqOutput = null;
+		qqOutput = testQ.getQuizQuestions();
+		assertNotNull(qqOutput);
 	}
 	/**
 	 * tests recordAnswer() and getPlayerAnswer() methods
@@ -68,61 +72,35 @@ public class QuizTest {
 	}
 
 	@Test
-	public void testGetQuizId() {
-		intOutput = testQ.getQuizId();
-		intExpected = 707;
-		assertEquals(intExpected,intOutput);
-	}
-	/**
-	 * test setQuizName() & getQuizName() methods
-	 */
-	@Test
-	public void testSetQuizName() {
-		testQ.setQuizName("Lets get quizzical");
-		strOutput = testQ.getQuizName();
-		strExpected = "Lets get quizzical";
-		assertEquals(strExpected,strOutput);
-	}
-	
-	/**
-	 * test setHighScore() & getHighScore() methods
-	 */
-	@Test
-	public void testSetHighScore() {
-		testQ.setHighScore(8);
-		intOutput = testQ.getHighScore();
-		intExpected = 8;
-	}
-
-	/**
-	 * test setCurrentWinner() & getCurrentWinner() methods
-	 */
-	@Test
-	public void testSetCurrentWinner() {
-		testQ.setCurrentWinner("Laura");
-		strOutput = testQ.getCurrentWinner();
-		assertEquals("Laura",strOutput);
-	}
-	
-	@Test
 	public void testCalculatePlayerScore(){
-		testQ.setQuizName("Sports Quiz");
-		Question mockQ1 = Mockito.mock(Question.class);
-		Question mockQ2 = Mockito.mock(Question.class);
-		Question mockQ3 = Mockito.mock(Question.class);
-		Question mockQ4 = Mockito.mock(Question.class);
-		Question mockQ5 = Mockito.mock(Question.class);
-		testQ.addQuestion(mockQ1);
-		testQ.addQuestion(mockQ2);
-		testQ.addQuestion(mockQ3);
-		testQ.addQuestion(mockQ4);
-		testQ.addQuestion(mockQ5);
+		when(mockedQQ.getQuizName()).thenReturn("Sports Quiz");
+		Question mockQ1 = mock(Question.class);
+		Question mockQ2 = mock(Question.class);
+		Question mockQ3 = mock(Question.class);
+		Question mockQ4 = mock(Question.class);
+		Question mockQ5 = mock(Question.class);
+		mockedQQ.addQuestion(mockQ1);
+		mockedQQ.addQuestion(mockQ2);
+		mockedQQ.addQuestion(mockQ3);
+		mockedQQ.addQuestion(mockQ4);
+		mockedQQ.addQuestion(mockQ5);
+		
+		when(mockedQQ.getQuestion(0)).thenReturn(mockQ1);
+		when(mockedQQ.getQuestion(1)).thenReturn(mockQ2);
+		when(mockedQQ.getQuestion(2)).thenReturn(mockQ3);
+		when(mockedQQ.getQuestion(3)).thenReturn(mockQ4);
+		when(mockedQQ.getQuestion(4)).thenReturn(mockQ5);
+		
+		List mockList = mock(List.class);
+		when(mockList.size()).thenReturn(5);
+		when(mockedQQ.getQuestionList()).thenReturn(mockList);
+
 		// define return value for method getCorrectAnswer()
-		Mockito.when(mockQ1.getCorrectAnswer()).thenReturn('a');
-		Mockito.when(mockQ2.getCorrectAnswer()).thenReturn('b');
-		Mockito.when(mockQ3.getCorrectAnswer()).thenReturn('c');
-		Mockito.when(mockQ4.getCorrectAnswer()).thenReturn('d');
-		Mockito.when(mockQ5.getCorrectAnswer()).thenReturn('a');
+		when(mockQ1.getCorrectAnswer()).thenReturn('a');
+		when(mockQ2.getCorrectAnswer()).thenReturn('b');
+		when(mockQ3.getCorrectAnswer()).thenReturn('c');
+		when(mockQ4.getCorrectAnswer()).thenReturn('d');
+		when(mockQ5.getCorrectAnswer()).thenReturn('a');
 		//add player answers to testQ
 		testQ.recordAnswer(1, 'c');
 		testQ.recordAnswer(2, 'b');
@@ -132,8 +110,58 @@ public class QuizTest {
 		intOutput = testQ.calculatePlayerScore();
 		intExpected = 3;
 		assertEquals(intExpected,intOutput);
-		Mockito.verify(mockQ1).getCorrectAnswer();
+		verify(mockQ1, times(2)).getCorrectAnswer();
 	}
+	
+	/**
+	 * tests addQuestion() & getQuestion() methods
+	 */
+/*	@Test
+	public void testAddQuestion() {
+		Question q = new QuestionImpl();
+		testQ.addQuestion(q);
+		Question outputQuestion = testQ.getQuestion(1);
+		assertNotNull(outputQuestion);
+	}
+*/
+	
+/*	@Test
+	public void testGetQuizId() {
+		intOutput = testQ.getQuizId();
+		intExpected = 707;
+		assertEquals(intExpected,intOutput);
+	}
+*/	/**
+	 * test setQuizName() & getQuizName() methods
+	 */
+/*	@Test
+	public void testSetQuizName() {
+		testQ.setQuizName("Lets get quizzical");
+		strOutput = testQ.getQuizName();
+		strExpected = "Lets get quizzical";
+		assertEquals(strExpected,strOutput);
+	}
+*/	
+	/**
+	 * test setHighScore() & getHighScore() methods
+	 */
+/*	@Test
+	public void testSetHighScore() {
+		testQ.setHighScore(8);
+		intOutput = testQ.getHighScore();
+		intExpected = 8;
+	}
+*/
+	/**
+	 * test setCurrentWinner() & getCurrentWinner() methods
+	 */
+/*	@Test
+	public void testSetCurrentWinner() {
+		testQ.setCurrentWinner("Laura");
+		strOutput = testQ.getCurrentWinner();
+		assertEquals("Laura",strOutput);
+	}
+*/	
 }
 
 
