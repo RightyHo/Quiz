@@ -44,6 +44,7 @@ public class SetUpClientImpl {
 
 			String receivedEcho = quizGameService.echo(str);
 			System.out.println("this is the received echo:  " + receivedEcho);
+			
 			System.out.println("QUIZ SET UP:");
 			boolean finished = false;
 			int selection = 0;
