@@ -9,19 +9,27 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
+import mach2.Question;
+import mach2.Quiz;
+import mach2.QuizServer;
+
 
 public class SetUpClient {
-	String quizName;
-	List<String> quizQuestions;
-	String answerA;
-	String answerB;
-	String answerC;
-	String answerD;
-	char correctAnswer;
+	private QuizServer quizService;
+	private Quiz newQuiz;
+	private Question newQuestion;
+	private String quizName;
+	private String answerA;
+	private String answerB;
+	private String answerC;
+	private String answerD;
+	private char correctAnswer;
 
 	public SetUpClient(){
+		quizService = null;
+		newQuiz = null;
+		newQuestion = null;
 		quizName = null;
-		quizQuestions = new ArrayList<String>();
 		answerA = null;
 		answerB = null;
 		answerC = null;
@@ -32,7 +40,7 @@ public class SetUpClient {
 	public static void main(String[] args){
 		//read imput string from console
 		String para = args[0];
-		SetUpClientImpl su = new SetUpClientImpl();
+		SetUpClient su = new SetUpClient();
 		su.launch(para);
 	}
 	private void launch(String str){
@@ -42,9 +50,9 @@ public class SetUpClient {
 		}
 		try {
 			Remote service = Naming.lookup("//127.0.0.1:1099/quiz");
-			QuizGameServer quizGameService = (QuizGameServer) service;
+			quizService = (QuizServer) service;
 
-			String receivedEcho = quizGameService.echo(str);
+			String receivedEcho = quizService.echo(str);
 			System.out.println("this is the received echo:  " + receivedEcho);
 			
 			System.out.println("QUIZ SET UP:");
@@ -58,12 +66,12 @@ public class SetUpClient {
 				selection = Integer.parseInt(System.console().readLine());
 				switch(selection){
 				case 1:
-					createNewQuiz(quizGameService);
+					createNewQuiz();
 					break;
 				case 2:
 					System.out.println("Please key in the ID number of the quiz you wish to close: ");
 					int id = Integer.parseInt(System.console().readLine());
-					closeQuiz(quizGameService,id);
+					closeQuiz(id);
 					break;
 				case 3:
 					finished = true;
@@ -83,10 +91,12 @@ public class SetUpClient {
 	 * @throws RemoteException 
 	 * 
 	 */
-	private void createNewQuiz(QuizGameServer quizGameService) throws RemoteException{
+	private int createNewQuiz() throws RemoteException{
 		System.out.println("CREATE A NEW QUIZ:");
 		System.out.println("Please key in the name of the new quiz: ");
 		quizName = System.console().readLine();
+		newQuiz = quizService.createNewQuiz(quizName);
+		
 		boolean finished = false;
 		String inputQ = null;
 		while(!finished){
@@ -94,8 +104,9 @@ public class SetUpClient {
 			inputQ = System.console().readLine();
 			if(inputQ == "X" || inputQ == "x"){
 				System.out.println("All quiz questions received.  Thanks you!");
+				quizService.saveQuiz(newQuiz);
 				finished = true;
-				break;
+				return newQuiz.getQuizId();
 			} else {
 				System.out.println("Please enter 'possible answer' A: ");
 				answerA = System.console().readLine();
@@ -110,7 +121,8 @@ public class SetUpClient {
 				correctAnswer = temp.charAt(0);
 				if(correctAnswer == 'A' || correctAnswer == 'B' || correctAnswer == 'C' || correctAnswer == 'D' ||
 						correctAnswer == 'a' ||correctAnswer == 'b' ||correctAnswer == 'c' ||correctAnswer == 'd'){
-					String outputQ = quizGameService.populateQuestion(quizName,inputQ,answerA,answerB,answerC,answerD,correctAnswer);
+					newQuestion = quizService.createNewQuestion(inputQ,answerA,answerB,answerC,answerD,correctAnswer);
+					String outputQ = newQuiz.addQuestionToQuiz(newQuestion);
 					System.out.println("QUESTION: " + outputQ + " has been added to the list.");
 				} else {
 					System.out.println("Error - the letter you input was out of bounds.  Please re-enter the question...");
@@ -119,9 +131,14 @@ public class SetUpClient {
 		}
 	}
 
-	private void closeQuiz(QuizGameServer quizGameService,int quizId) throws RemoteException {
-		String winner = quizGameService.closeQuizGame(quizId);
-		System.out.println("SET-UP CLIENT: The Winner was " + winner);
+	private void closeQuiz(int quizId) throws RemoteException {
+		Quiz quizToClose = quizService.getQuiz(quizId);
+		String winner = quizToClose.getCurrentWinner();
+		int allTimeHigh = quizToClose.getHighScore();
+		quizName = quizToClose.getQuizName(quizId);
+		quizService.closeQuizGame(quizId);
+		System.out.println("CLOSING QUIZ: " + quizName);
+		System.out.println("The Winner was: " + winner + " with an all time high score of " + allTimeHigh + "!");
 	}
 }
 
