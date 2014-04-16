@@ -9,6 +9,15 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 public class PlayerClient {
+	QuizGameServer quizGameService;
+	PlayerAttempt game;
+	Question printQuestion;
+
+	public PlayerClient(){
+		quizGameService = null;
+		game = null;
+		printQuestion = null;
+	}
 	public static void main(String[] args){
 		//read imput string from console
 		String para = args[0];
@@ -22,10 +31,10 @@ public class PlayerClient {
 		}
 		try {
 			Remote service = Naming.lookup("//127.0.0.1:1099/quiz");
-			QuizGameServer quizGameService = (QuizGameServer) service;
+			quizGameService = (QuizGameServer) service;
 			String receivedEcho = quizGameService.echo(str);
 			System.out.println("this is the received echo:  " + receivedEcho);
-			
+
 			System.out.println("WELCOME TO THE QUIZ GAME:");
 			boolean finished = false;
 			int selection = 0;
@@ -36,7 +45,7 @@ public class PlayerClient {
 				selection = Integer.parseInt(System.console().readLine());
 				switch(selection){
 				case 1:
-					playQuiz(quizGameService);
+					playQuiz();
 					break;
 				case 2:
 					System.out.println("Thank you for playing.  Goodbye");
@@ -52,8 +61,8 @@ public class PlayerClient {
 			ex.printStackTrace();
 		}
 	}
-	
-	private void playQuiz(QuizGameServer quizGameService) throws RemoteException{
+
+	private void playQuiz() throws RemoteException{
 		System.out.println("Please select a quiz from the available list below: ");
 		List<String> sList = quizGameService.getAvaliableQuizList();
 		for(String s : sList){
@@ -61,34 +70,39 @@ public class PlayerClient {
 		}
 		System.out.println("Please key in the name of the quiz you wish to play: ");
 		String selection = System.console().readLine();
-		Quiz game = quizGameService.getQuiz(selection);
-		boolean finished = false;	
-		int count = 1;
-		Question printQuestion = null;
-		while(!finished){	
-			if(game.getQuizQuestions().getQuestion(count) != null){
-				printQuestion = game.getQuizQuestions().getQuestion(count);
-				System.out.println(printQuestion.getQuestion());
-				System.out.println("A.)" + printQuestion.getAnswer('A'));
-				System.out.println("B.)" + printQuestion.getAnswer('B'));
-				System.out.println("C.)" + printQuestion.getAnswer('C'));
-				System.out.println("D.)" + printQuestion.getAnswer('D'));
-				selection = System.console().readLine();
-				game.recordAnswer(count,selection.charAt(0));
-				count++;
-				if(printQuestion.getCorrectAnswer() == selection.charAt(0)){
-					System.out.println("Correct!");
-				} else {
-					System.out.println("Incorrect.");
-				}
-			} else {
-				finished = true;
+		game = quizGameService.getQuiz(selection);
+		if(game.getQuiz().validQuiz() = false){
+			System.out.println("Error -  you cannot play an invalid quiz!");
+		} else {
+			boolean finished = false;	
+			int count = 1;
+			while(!finished){	
+				if(game.getQuizQuestions().getQuestion(count) != null){
+					printQuestion = game.getQuizQuestions().getQuestion(count);
+					System.out.println(printQuestion.getQuestion());
+					System.out.println("A.)" + printQuestion.getAnswer('A'));
+					System.out.println("B.)" + printQuestion.getAnswer('B'));
+					System.out.println("C.)" + printQuestion.getAnswer('C'));
+					System.out.println("D.)" + printQuestion.getAnswer('D'));
+					selection = System.console().readLine();
+					if(selection != null){
+						if(selection.charAt(0) == printQuestion.getCorrectAnswer()){
+							quizGameService.addMarkToScore(game);
+							System.out.println("Correct!");
+						} else {
+							System.out.println("Incorrect.");
+						}
+					} else {
+						System.out.println("Error - Your answer to question " + count + "was null!");
+					}
+					count++;
 			}
+			int playerScore = quizGameService.getPlayerScore(game);
+			System.out.println("Your total score was: " + playerScore);
+			quizGameService.saveResult(playerScore);
 		}
-		quizGameService.calculateScore(game);
+
 	}
-	
-}
 
 
 
