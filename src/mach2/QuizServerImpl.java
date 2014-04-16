@@ -19,28 +19,55 @@ public class QuizServerImpl extends UnicastRemoteObject implements QuizServer, S
 		}
 	}
 	
-	Quiz createNewQuiz(String quizName){
-		return quizStore.createNewQuiz(quizName);
-	}
-	
-	Question createNewQuestion(inputQ,answerA,answerB,answerC,answerD,correctAnswer){
-		return 
-	}
-
-	List<String> getAvaliableQuizList(){
-		return quizStore.getAvailableQuizList();
-	}
-	
-	PlayerAttempt quizGameService.getQuiz(String quizName){
-		return quizStore.getQuiz(quizName);
-	}
-	
 	/**
 	 * Saves the quizStore to disk
 	 * @throws RemoteException
 	 */
 	public void flush() throws RemoteException{
 		io.saveToDisk(quizStore);
+	}
+	
+	public Quiz createNewQuiz(String quizName){
+		return quizStore.createNewQuiz(quizName);
+	}
+	
+	public Question createNewQuestion(String inputQ,String answerA,String answerB,String answerC,String answerD,char correctAnswer){
+		return quizStore.createNewQuestion(inputQ,answerA,answerB,answerC,answerD,correctAnswer);
+	}
+
+	public Quiz getQuiz(int quizId){
+		return quizStore.getQuiz(quizId);
+	}
+	
+	public PlayerAttempt getQuiz(String quizName){
+		return quizStore.getQuiz(quizName);
+	}
+	
+	public List<String> getAvaliableQuizList(){
+		return quizStore.getAvailableQuizList();
+	}
+	
+	public void addMarkToScore(PlayerAttempt game){
+		quizStore.addMarkToScore(game);
+	}
+	
+	public int getPlayerScore(PlayerAttempt game){
+		return quizStore.getPlayerScore(game);
+	}
+	
+	public void saveQuiz(Quiz newQuiz){
+		quizStore.saveQuiz(newQuiz);
+		flush();
+	}
+	
+	public void saveResult(int playerScore){
+		quizStore.saveResult(playerScore);
+		flush();
+	}
+	
+	public void closeQuizGame(int quizId){
+		quizStore.closeQuizGame(quizId);
+		flush();
 	}
 	
 	@Override
