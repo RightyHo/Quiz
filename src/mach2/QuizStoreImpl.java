@@ -95,15 +95,15 @@ public class QuizStoreImpl implements QuizStore,Serializable {
 		}
 	}
 
-	public void saveResult(PlayerAttempt game,int playerScore){
+	public void saveResult(PlayerAttempt game){
 		if(game == null){
 			throw new IllegalArgumentException();
 		} else {
-			game.saveResult(playerScore);
+			game.saveResult();
 		}
 	}
 
-	public void closeQuizGame(quizId){
+	public void closeQuizGame(int quizId){
 		for(Quiz q : quizList){
 			if(q.getQuizId() == quizId){
 				quizList.remove(q);

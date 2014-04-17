@@ -77,8 +77,8 @@ public class PlayerClient {
 			boolean finished = false;	
 			int count = 1;
 			while(!finished){	
-				if(game.getQuizQuestions().getQuestion(count) != null){
-					printQuestion = game.getQuizQuestions().getQuestion(count);
+				if(game.getQuestion(count) != null){
+					printQuestion = game.getQuestion(count);
 					System.out.println(printQuestion.getQuestion());
 					System.out.println("A.)" + printQuestion.getAnswer('A'));
 					System.out.println("B.)" + printQuestion.getAnswer('B'));
@@ -99,7 +99,7 @@ public class PlayerClient {
 			}
 			int playerScore = quizGameService.getPlayerScore(game);
 			System.out.println("Your total score was: " + playerScore);
-			quizGameService.saveResult(game,playerScore);
+			quizGameService.saveResult(game);
 		}
 
 	}

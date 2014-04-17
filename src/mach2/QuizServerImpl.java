@@ -12,8 +12,7 @@ public class QuizServerImpl extends UnicastRemoteObject implements QuizServer, S
 	public QuizServerImpl() throws RemoteException {
 		io = new InputOutputImpl(fileName);
 		if(io.fileAlreadyExists()){
-			Object[] obj = io.readFromDisk();
-			quizStore = (QuizStore) obj[0];
+			quizStore = io.readFromDisk();
 		} else {
 			quizStore = new QuizStoreImpl();
 		}
@@ -60,8 +59,8 @@ public class QuizServerImpl extends UnicastRemoteObject implements QuizServer, S
 		flush();
 	}
 	
-	public void saveResult(PlayerAttempt game,int playerScore);
-		quizStore.saveResult(game,playerScore);
+	public void saveResult(PlayerAttempt game);
+		quizStore.saveResult(game);
 		flush();
 	}
 	

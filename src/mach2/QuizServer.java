@@ -26,7 +26,7 @@ public interface QuizServer {
 	
 	void saveQuiz(Quiz newQuiz);
 	
-	void saveResult(int playerScore);
+	void saveResult(PlayerAttempt game);
 	
 	void closeQuizGame(int quizId);
 	

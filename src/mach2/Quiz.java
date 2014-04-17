@@ -2,8 +2,17 @@ package mach2;
 
 public interface Quiz {
 
-	boolean isQuizValid();
-
-	boolean isQuizValid();
+	int getQuizId();
 	
+	String getQuizName();
+	
+	String addQuestionToQuiz(Question newQuestion);
+	
+	Question getQuestion(int questionNumber);
+	
+	String getCurrentWinner();
+	
+	int getHighScore();
+	
+	boolean isQuizValid();
 }

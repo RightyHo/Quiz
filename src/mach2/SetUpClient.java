@@ -135,7 +135,7 @@ public class SetUpClient {
 		Quiz quizToClose = quizService.getQuiz(quizId);
 		String winner = quizToClose.getCurrentWinner();
 		int allTimeHigh = quizToClose.getHighScore();
-		quizName = quizToClose.getQuizName(quizId);
+		quizName = quizToClose.getQuizName();
 		quizService.closeQuizGame(quizId);
 		System.out.println("CLOSING QUIZ: " + quizName);
 		System.out.println("The Winner was: " + winner + " with an all time high score of " + allTimeHigh + "!");
