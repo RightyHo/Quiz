@@ -34,13 +34,13 @@ public class QuizStoreImpl implements QuizStore,Serializable {
 	}
 
 	public PlayerAttempt getQuiz(String quizName){
-		Quiz result = null;
+		PlayerAttempt result = null;
 		if(quizName == null){
 			throw new IllegalArgumentException();
 		} else {
 			for(Quiz q : quizList){
 				if(q.getQuizName().equals(quizName)){
-					result = q;
+					result = new PlayerAttemptImpl(q);
 					break;
 				}
 			}

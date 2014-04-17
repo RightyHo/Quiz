@@ -1,8 +1,10 @@
 package mach2;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class QuizImpl implements Quiz {
+public class QuizImpl implements Quiz,Serializable {
 	int quizId;
 	String quizName;
 	List<Question> questionList;
@@ -15,7 +17,7 @@ public class QuizImpl implements Quiz {
 		this.quizName = quizName;
 		questionList = new ArrayList<Question>();
 		playerResultsList = new ArrayList<Integer>();
-		highScorehighScore = 0;
+		highScore = 0;
 		currentWinner = "";
 	}
 	
@@ -33,7 +35,9 @@ public class QuizImpl implements Quiz {
 			throw new IllegalArgumentException();
 		} else {
 			questionList.add(newQuestion);
+			result = newQuestion.getQuestion();
 		}
+		return result;
 	}
 	
 	public Question getQuestion(int questionNumber){

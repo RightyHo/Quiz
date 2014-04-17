@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.rmi.RemoteException;
-import java.util.List;
 
 
 public class InputOutputImpl implements InputOutput {
@@ -62,6 +61,7 @@ public class InputOutputImpl implements InputOutput {
 	 * Reads the file from disk and returns the objects stored there
 	 * @return object array containing a results list and questions list
 	 */
+	@SuppressWarnings("finally")
 	public Object[] readFromDisk(){
 		QuizStore quizStore = null;
 		FileInputStream fileIn = null;
@@ -76,7 +76,7 @@ public class InputOutputImpl implements InputOutput {
 			ex.printStackTrace();
 		} finally {
 			closeReader(in,fileIn);
-			return quizStore;
+			return new Object[]{quizStore};
 		}
     }
 	private void closeReader(ObjectInputStream in,FileInputStream fileIn) { 

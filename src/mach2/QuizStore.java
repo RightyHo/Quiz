@@ -1,13 +1,13 @@
 package mach2;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface QuizStore {
+	
 	Quiz createNewQuiz(String quizName);
-	
+
 	Question createNewQuestion(String inputQ,String answerA,String answerB,String answerC,String answerD,char correctAnswer);
-	
+
 	PlayerAttempt getQuiz(String quizName);
 
 	Quiz getQuiz(int quizId);
@@ -20,7 +20,7 @@ public interface QuizStore {
 
 	void saveQuiz(Quiz newQuiz);
 
-	void saveResult(PlayerAttempt game,int playerScore);
+	void saveResult(PlayerAttempt game);
 
 	void closeQuizGame(int quizId);
 }

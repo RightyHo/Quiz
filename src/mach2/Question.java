@@ -23,7 +23,7 @@ public interface Question {
 	/**
 	 * Returns the requested possible answer
 	 * @param whichAnswer a char denoting which answer A,B,C or D is being requested
-	 * @return answer string
+	 * @return answer string or null if the parameters are outside of the bounds
 	 */
 	String getAnswer(char whichAnswer);
 	/**
@@ -31,5 +31,7 @@ public interface Question {
 	 * @return char the letter of the correct answer
 	 */
 	char getCorrectAnswer();
+
+	boolean isQuestionValid();
 }
 

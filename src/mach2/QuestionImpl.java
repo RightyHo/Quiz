@@ -87,7 +87,7 @@ public class QuestionImpl implements Question, Serializable {
 		return correctAnswer;
 	}
 
-	boolean isQuestionValid(){
+	public boolean isQuestionValid(){
 		boolean result = true;
 		if(question == null){
 			result = false;

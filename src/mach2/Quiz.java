@@ -15,4 +15,6 @@ public interface Quiz {
 	int getHighScore();
 	
 	boolean isQuizValid();
+	
+	void saveResult(int playerScore);
 }

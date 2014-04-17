@@ -1,18 +1,20 @@
 package mach2;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.List;
 
 public class QuizServerImpl extends UnicastRemoteObject implements QuizServer, Serializable{
 	QuizStore quizStore;
 	InputOutput io;
+	private static final String fileName = "quizFile.ser";
 	
 	public QuizServerImpl() throws RemoteException {
 		io = new InputOutputImpl(fileName);
 		if(io.fileAlreadyExists()){
-			quizStore = io.readFromDisk();
+			Object[] obj = io.readFromDisk();
+			quizStore = (QuizStore) obj[0];
 		} else {
 			quizStore = new QuizStoreImpl();
 		}
@@ -42,6 +44,7 @@ public class QuizServerImpl extends UnicastRemoteObject implements QuizServer, S
 		return quizStore.getQuiz(quizName);
 	}
 	
+	
 	public List<String> getAvaliableQuizList(){
 		return quizStore.getAvailableQuizList();
 	}
@@ -54,17 +57,17 @@ public class QuizServerImpl extends UnicastRemoteObject implements QuizServer, S
 		return quizStore.getPlayerScore(game);
 	}
 	
-	public void saveQuiz(Quiz newQuiz){
+	public void saveQuiz(Quiz newQuiz) throws RemoteException{
 		quizStore.saveQuiz(newQuiz);
 		flush();
 	}
 	
-	public void saveResult(PlayerAttempt game);
+	public void saveResult(PlayerAttempt game) throws RemoteException{
 		quizStore.saveResult(game);
 		flush();
 	}
 	
-	public void closeQuizGame(int quizId){
+	public void closeQuizGame(int quizId) throws RemoteException{
 		quizStore.closeQuizGame(quizId);
 		flush();
 	}

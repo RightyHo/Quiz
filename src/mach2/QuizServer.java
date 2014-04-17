@@ -8,7 +8,7 @@ public interface QuizServer {
 	 * Saves the quizStore to disk
 	 * @throws RemoteException
 	 */
-	public void flush() throws RemoteException;
+	void flush() throws RemoteException;
 	
 	Quiz createNewQuiz(String quizName);
 	
@@ -24,11 +24,11 @@ public interface QuizServer {
 	
 	int getPlayerScore(PlayerAttempt game);
 	
-	void saveQuiz(Quiz newQuiz);
+	void saveQuiz(Quiz newQuiz) throws RemoteException;
 	
-	void saveResult(PlayerAttempt game);
+	void saveResult(PlayerAttempt game) throws RemoteException;
 	
-	void closeQuizGame(int quizId);
+	void closeQuizGame(int quizId) throws RemoteException;
 	
 	String echo(String s) throws RemoteException;
 }

@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 public class PlayerClient {
-	QuizGameServer quizGameService;
+	QuizServer quizGameService;
 	PlayerAttempt game;
 	Question printQuestion;
 
@@ -21,7 +21,7 @@ public class PlayerClient {
 	public static void main(String[] args){
 		//read imput string from console
 		String para = args[0];
-		PlayerClientImpl pc = new PlayerClientImpl();
+		PlayerClient pc = new PlayerClient();
 		pc.launch(para);
 	}
 	private void launch(String str){
@@ -31,7 +31,7 @@ public class PlayerClient {
 		}
 		try {
 			Remote service = Naming.lookup("//127.0.0.1:1099/quiz");
-			quizGameService = (QuizGameServer) service;
+			quizGameService = (QuizServer) service;
 			String receivedEcho = quizGameService.echo(str);
 			System.out.println("this is the received echo:  " + receivedEcho);
 
@@ -103,6 +103,7 @@ public class PlayerClient {
 		}
 
 	}
+
 
 
 

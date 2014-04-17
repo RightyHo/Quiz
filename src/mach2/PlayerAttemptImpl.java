@@ -1,13 +1,17 @@
 package mach2;
 
-public class PlayerAttemptImpl implements PlayerAttempt {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PlayerAttemptImpl implements PlayerAttempt, Serializable {
 	Quiz quiz;
-	List<Char> playerAnswers;
+	List<Character> playerAnswers;
 	int playerScore;
 	
 	public PlayerAttemptImpl(Quiz quiz){
 		this.quiz = quiz;
-		playerAnswers = new ArrayList<Char>();
+		playerAnswers = new ArrayList<Character>();
 		playerScore = 0;
 	}
 	
