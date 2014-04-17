@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuizImpl implements Quiz,Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5327550892892727172L;
 	int quizId;
 	String quizName;
 	List<Question> questionList;

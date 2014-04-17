@@ -6,6 +6,10 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 public class QuizServerImpl extends UnicastRemoteObject implements QuizServer, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -602715859520900105L;
 	QuizStore quizStore;
 	InputOutput io;
 	private static final String fileName = "quizFile.ser";

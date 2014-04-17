@@ -71,38 +71,41 @@ public class PlayerClient {
 		System.out.println("Please key in the name of the quiz you wish to play: ");
 		String selection = System.console().readLine();
 		game = quizGameService.getQuiz(selection);
-		if(game.getQuiz().validQuiz() = false){
-			System.out.println("Error -  you cannot play an invalid quiz!");
-		} else {
-			boolean finished = false;	
-			int count = 1;
-			while(!finished){	
-				if(game.getQuestion(count) != null){
-					printQuestion = game.getQuestion(count);
-					System.out.println(printQuestion.getQuestion());
-					System.out.println("A.)" + printQuestion.getAnswer('A'));
-					System.out.println("B.)" + printQuestion.getAnswer('B'));
-					System.out.println("C.)" + printQuestion.getAnswer('C'));
-					System.out.println("D.)" + printQuestion.getAnswer('D'));
-					selection = System.console().readLine();
-					if(selection != null){
-						if(selection.charAt(0) == printQuestion.getCorrectAnswer()){
-							quizGameService.addMarkToScore(game);
-							System.out.println("Correct!");
+		if(game != null){
+			if(game.getQuiz().isQuizValid() == false){
+				System.out.println("Error -  you cannot play an invalid quiz!");
+			} else {
+				boolean finished = false;	
+				int count = 1;
+				while(!finished){	
+					if(game.getQuestion(count) != null){
+						printQuestion = game.getQuestion(count);
+						System.out.println(printQuestion.getQuestion());
+						System.out.println("A.)" + printQuestion.getAnswer('A'));
+						System.out.println("B.)" + printQuestion.getAnswer('B'));
+						System.out.println("C.)" + printQuestion.getAnswer('C'));
+						System.out.println("D.)" + printQuestion.getAnswer('D'));
+						selection = System.console().readLine();
+						if(selection != null){
+							if(selection.charAt(0) == printQuestion.getCorrectAnswer()){
+								quizGameService.addMarkToScore(game);
+								System.out.println("Correct!");
+							} else {
+								System.out.println("Incorrect.");
+							}
 						} else {
-							System.out.println("Incorrect.");
+							System.out.println("Error - Your answer to question " + count + "was null!");
 						}
-					} else {
-						System.out.println("Error - Your answer to question " + count + "was null!");
+						count++;
 					}
-					count++;
+					int playerScore = quizGameService.getPlayerScore(game);
+					System.out.println("Your total score was: " + playerScore);
+					quizGameService.saveResult(game);
+				}
 			}
-			int playerScore = quizGameService.getPlayerScore(game);
-			System.out.println("Your total score was: " + playerScore);
-			quizGameService.saveResult(game);
 		}
-
 	}
+}
 
 
 

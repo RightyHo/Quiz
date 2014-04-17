@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerAttemptImpl implements PlayerAttempt, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2415700122129099939L;
 	Quiz quiz;
 	List<Character> playerAnswers;
 	int playerScore;
@@ -29,5 +33,9 @@ public class PlayerAttemptImpl implements PlayerAttempt, Serializable {
 	
 	public void saveResult(){
 		quiz.saveResult(playerScore);
+	}
+	
+	public Quiz getQuiz(){
+		return quiz;
 	}
 }

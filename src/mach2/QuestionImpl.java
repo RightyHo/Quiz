@@ -4,10 +4,11 @@ import java.io.Serializable;
 
 
 public class QuestionImpl implements Question, Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7108793734464809664L;
 	private String question;
 	private String answerA;
 	private String answerB;

@@ -9,5 +9,7 @@ public interface PlayerAttempt {
 	int getPlayerScore();
 	
 	void saveResult();
+	
+	Quiz getQuiz();
 
 }

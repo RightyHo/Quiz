@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuizStoreImpl implements QuizStore,Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5418031766947696024L;
 	List<Quiz> quizList;
 	Quiz quiz;
 	Question question;

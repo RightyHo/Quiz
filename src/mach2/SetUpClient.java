@@ -6,9 +6,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
-
 import mach2.Question;
 import mach2.Quiz;
 import mach2.QuizServer;
@@ -89,7 +86,7 @@ public class SetUpClient {
 	/**
 	 * Enable a user to create a new quiz 
 	 * @throws RemoteException 
-	 * 
+	 * @return the quiz ID number
 	 */
 	private int createNewQuiz() throws RemoteException{
 		System.out.println("CREATE A NEW QUIZ:");
@@ -129,6 +126,7 @@ public class SetUpClient {
 				}
 			}
 		}
+		return newQuiz.getQuizId();
 	}
 
 	private void closeQuiz(int quizId) throws RemoteException {
