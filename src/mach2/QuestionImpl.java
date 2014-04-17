@@ -65,6 +65,7 @@ public class QuestionImpl implements Question, Serializable {
 	 * Returns the requested possible answer
 	 * @param whichAnswer a char denoting which answer A,B,C or D is being requested
 	 * @return answer string or null if the parameters are outside of the bounds
+	 * @throws IllegalArgumentException
 	 */
 	public String getAnswer(char whichAnswer){
 		if(whichAnswer == 'a' || whichAnswer == 'A'){
@@ -76,8 +77,7 @@ public class QuestionImpl implements Question, Serializable {
 		} else if(whichAnswer == 'd' || whichAnswer == 'D'){
 			return answerD;
 		} else {
-			System.out.println("ERROR - the answer letter you entered is out of bounds!");
-			return null;
+			throw new IllegalArgumentException();
 		}
 	}
 	/**
@@ -87,7 +87,10 @@ public class QuestionImpl implements Question, Serializable {
 	public char getCorrectAnswer(){
 		return correctAnswer;
 	}
-
+	/**
+	 * Checks whether the question is set up correctly
+	 * @return boolean value reports whether a question is valid or not
+	 */
 	public boolean isQuestionValid(){
 		boolean result = true;
 		if(question == null){

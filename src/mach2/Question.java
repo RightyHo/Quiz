@@ -24,6 +24,7 @@ public interface Question {
 	 * Returns the requested possible answer
 	 * @param whichAnswer a char denoting which answer A,B,C or D is being requested
 	 * @return answer string or null if the parameters are outside of the bounds
+	 * @throws IllegalArgumentException
 	 */
 	String getAnswer(char whichAnswer);
 	/**
@@ -31,7 +32,10 @@ public interface Question {
 	 * @return char the letter of the correct answer
 	 */
 	char getCorrectAnswer();
-
+	/**
+	 * Checks whether the question is set up correctly
+	 * @return boolean value reports whether a question is valid or not
+	 */
 	boolean isQuestionValid();
 }
 
