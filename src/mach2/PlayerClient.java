@@ -99,7 +99,7 @@ public class PlayerClient {
 			}
 			int playerScore = quizGameService.getPlayerScore(game);
 			System.out.println("Your total score was: " + playerScore);
-			quizGameService.saveResult(playerScore);
+			quizGameService.saveResult(game,playerScore);
 		}
 
 	}

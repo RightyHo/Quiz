@@ -60,8 +60,8 @@ public class QuizServerImpl extends UnicastRemoteObject implements QuizServer, S
 		flush();
 	}
 	
-	public void saveResult(int playerScore){
-		quizStore.saveResult(playerScore);
+	public void saveResult(PlayerAttempt game,int playerScore);
+		quizStore.saveResult(game,playerScore);
 		flush();
 	}
 	
