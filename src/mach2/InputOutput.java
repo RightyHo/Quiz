@@ -4,6 +4,10 @@ import java.rmi.RemoteException;
 
 
 public interface InputOutput {
+	/**
+	 * File name setter
+	 * @param fileName
+	 */
 	void setFileName(String fileName);
 	/**
 	 * Stores the high score of the quiz and the name of the current winner on disk

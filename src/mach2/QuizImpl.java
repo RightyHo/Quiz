@@ -75,5 +75,70 @@ public class QuizImpl implements Quiz,Serializable {
 	
 	public void saveResult(int playerScore){
 		playerResultsList.add(playerScore);
+		if(playerScore > highScore){
+			highScore = playerScore;
+			System.out.println("Congratulations you have the highest score so far!  For posterity's sake please sign your name:");
+			currentWinner = System.console().readLine();
+		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
