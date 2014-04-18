@@ -18,12 +18,14 @@ public class PlayerClient {
 		game = null;
 		printQuestion = null;
 	}
+	
 	public static void main(String[] args){
 		//read imput string from console
 		String para = args[0];
 		PlayerClient pc = new PlayerClient();
 		pc.launch(para);
 	}
+	
 	private void launch(String str){
 		// If there is no security manager, start one
 		if (System.getSecurityManager() == null) {
@@ -61,7 +63,11 @@ public class PlayerClient {
 			ex.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * Quiz game method
+	 * @throws RemoteException
+	 */
 	private void playQuiz() throws RemoteException{
 		System.out.println("Please select a quiz from the available list below: ");
 		List<String> sList = quizGameService.getAvaliableQuizList();
@@ -70,7 +76,7 @@ public class PlayerClient {
 		}
 		System.out.println("Please key in the name of the quiz you wish to play: ");
 		String selection = System.console().readLine();
-		game = quizGameService.getQuiz(selection);
+		game = quizGameService.getQuizAttempt(selection);
 		if(game != null){
 			if(game.getQuiz().isQuizValid() == false){
 				System.out.println("Error -  you cannot play an invalid quiz!");

@@ -18,23 +18,37 @@ public class PlayerAttemptImpl implements PlayerAttempt, Serializable {
 		playerAnswers = new ArrayList<Character>();
 		playerScore = 0;
 	}
-	
+	/**
+	 * Returns the quiz question corresponding to the question number passed as parameter
+	 * @param questionNumber
+	 * @return Question
+	 */
 	public Question getQuestion(int questionNumber){
 		return quiz.getQuestion(questionNumber);
 	}
-	
+	/**
+	 * Increments the player score by one
+	 */
 	public void addMarkToScore(){
 		playerScore++;
 	}
-	
+	/**
+	 * Returns the player score
+	 * @return int value of the player score
+	 */
 	public int getPlayerScore(){
 		return playerScore;
 	}
-	
+	/**
+	 * Checks whether this player attempt is the new high score and adds the player score to the quiz results list  
+	 */
 	public void saveResult(){
 		quiz.saveResult(playerScore);
 	}
-	
+	/**
+	 * Returns the quiz that this player attempt is based on
+	 * @return Quiz that this player attempt is based on
+	 */
 	public Quiz getQuiz(){
 		return quiz;
 	}

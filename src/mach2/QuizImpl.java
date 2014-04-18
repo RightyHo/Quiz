@@ -25,14 +25,28 @@ public class QuizImpl implements Quiz,Serializable {
 		currentWinner = "";
 	}
 	
+	/**
+	 * Returns the quiz ID
+	 * @param int value representing the quiz ID
+	 */
 	public int getQuizId(){
 		return quizId;
 	}
 	
+	/**
+	 * Returns the Quiz Name
+	 * @return String of the quiz name
+	 */
 	public String getQuizName(){
 		return quizName;
 	}
 	
+	/**
+	 * Adds a question to the quiz question list
+	 * @param newQuestion
+	 * @return String of the new quiz question that has been added to the list
+	 * @throws IllegalArgumentException
+	 */
 	public String addQuestionToQuiz(Question newQuestion){
 		String result = null;
 		if(!newQuestion.isQuestionValid()){
@@ -44,6 +58,12 @@ public class QuizImpl implements Quiz,Serializable {
 		return result;
 	}
 	
+	/**
+	 * Returns the question related to the question number passed to the method
+	 * @param questionNumber 
+	 * @return Question
+	 * @throws IndexOutOfBoundsException
+	 */
 	public Question getQuestion(int questionNumber){
 		Question result = null;
 		if(questionNumber > questionList.size()){
@@ -54,14 +74,26 @@ public class QuizImpl implements Quiz,Serializable {
 		return result;
 	}
 	
+	/**
+	 * returns the current winner of the quiz
+	 * @return String of the current winner of the quiz
+	 */
 	public String getCurrentWinner(){
 		return currentWinner;
 	}
 	
+	/**
+	 * returns the current high score of the quiz
+	 * @return int value of the current high score of the quiz
+	 */
 	public int getHighScore(){
 		return highScore;
 	}
 	
+	/**
+	 * Checks whether the quiz is set up correctly with a quiz ID and name
+	 * @return boolean value of true if the quiz is valid or false if it is not
+	 */
 	public boolean isQuizValid(){
 		boolean result = true;
 		if(quizId == 0){
@@ -73,6 +105,11 @@ public class QuizImpl implements Quiz,Serializable {
 		return result;
 	}
 	
+	/**
+	 * Adds the player score to the quiz results list.  Checks whether this player score is the new high score and
+	 * if so requests the players name and stores the input with the quiz record
+	 * @param playerScore
+	 */
 	public void saveResult(int playerScore){
 		playerResultsList.add(playerScore);
 		if(playerScore > highScore){
