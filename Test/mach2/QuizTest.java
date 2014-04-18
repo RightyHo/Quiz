@@ -1,167 +1,132 @@
+package mach2;
+
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.rules.ExpectedException;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 
 public class QuizTest {
-	Quiz testQ;
-	QuizQuestions mockedQQ;
-	int questionNumber;
-	char charOutput;
-	char charExpected;
-	int intOutput;
-	int intExpected;
-	String strOutput;
-	String strExpected;
-
+	
+	private int quizId = 1;
+	private String quizName = "New Zealand Place Names";
+	private Quiz testQuiz;
+	
+	@Mock
+	private Question mockInitialQuestion;
+	@Mock
+	private Question mockQuestion;
+	
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
+	
 	@Before
 	public void setUp() throws Exception {
-		mockedQQ = mock(QuizQuestions.class);
-		testQ = new QuizImpl(mockedQQ);
-		charOutput = '?';
-		charExpected = '?';
-		intOutput = 0;
-		intExpected = 0;
-		strOutput = "";
-		strExpected = "";
+		initMocks(this);
+		testQuiz = new QuizImpl(quizId,quizName);
+		when(mockInitialQuestion.isQuestionValid()).thenReturn(true);
+		testQuiz.addQuestionToQuiz(mockInitialQuestion);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
+	
 	/**
-	 * tests getQuizQuestions() method
+	 * checks that getQuizId returns correct value
 	 */
 	@Test
-	public void testGetQuizQuestions(){
-		QuizQuestions qqOutput = null;
-		qqOutput = testQ.getQuizQuestions();
-		assertNotNull(qqOutput);
-	}
-	/**
-	 * tests recordAnswer() and getPlayerAnswer() methods
-	 */
-	@Test
-	public void testRecordAnswer() {
-		try{
-			testQ.recordAnswer(0,'a');
-			testQ.recordAnswer(1,'d');
-			testQ.recordAnswer(2,'b');
-			charOutput = testQ.getPlayerAnswer(0);
-			charExpected = 'a';
-			assertEquals(charExpected,charOutput);
-			charOutput = testQ.getPlayerAnswer(1);
-			charExpected = 'd';
-			assertEquals(charExpected,charOutput);
-			charOutput = testQ.getPlayerAnswer(2);
-			charExpected = 'b';
-			assertEquals(charExpected,charOutput);
-			charOutput = testQ.getPlayerAnswer(6);
-			charExpected = 'a';
-			assertEquals(charExpected,charOutput);
-		} catch (IndexOutOfBoundsException ex){
-			System.out.println("TEST PASSED - The player answer at the question number you selected doesn't exist!");
-		}
-	}
-
-	@Test
-	public void testCalculatePlayerScore(){
-		when(mockedQQ.getQuizName()).thenReturn("Sports Quiz");
-		Question mockQ1 = mock(Question.class);
-		Question mockQ2 = mock(Question.class);
-		Question mockQ3 = mock(Question.class);
-		Question mockQ4 = mock(Question.class);
-		Question mockQ5 = mock(Question.class);
-		mockedQQ.addQuestion(mockQ1);
-		mockedQQ.addQuestion(mockQ2);
-		mockedQQ.addQuestion(mockQ3);
-		mockedQQ.addQuestion(mockQ4);
-		mockedQQ.addQuestion(mockQ5);
-		
-		when(mockedQQ.getQuestion(0)).thenReturn(mockQ1);
-		when(mockedQQ.getQuestion(1)).thenReturn(mockQ2);
-		when(mockedQQ.getQuestion(2)).thenReturn(mockQ3);
-		when(mockedQQ.getQuestion(3)).thenReturn(mockQ4);
-		when(mockedQQ.getQuestion(4)).thenReturn(mockQ5);
-		
-		List mockList = mock(List.class);
-		when(mockList.size()).thenReturn(5);
-		when(mockedQQ.getQuestionList()).thenReturn(mockList);
-
-		// define return value for method getCorrectAnswer()
-		when(mockQ1.getCorrectAnswer()).thenReturn('a');
-		when(mockQ2.getCorrectAnswer()).thenReturn('b');
-		when(mockQ3.getCorrectAnswer()).thenReturn('c');
-		when(mockQ4.getCorrectAnswer()).thenReturn('d');
-		when(mockQ5.getCorrectAnswer()).thenReturn('a');
-		//add player answers to testQ
-		testQ.recordAnswer(1, 'c');
-		testQ.recordAnswer(2, 'b');
-		testQ.recordAnswer(3, 'c');
-		testQ.recordAnswer(4, 'c');
-		testQ.recordAnswer(5, 'a');
-		intOutput = testQ.calculatePlayerScore();
-		intExpected = 3;
-		assertEquals(intExpected,intOutput);
-		verify(mockQ1, times(2)).getCorrectAnswer();
+	public void testGetQuizId(){
+	assertEquals(quizId,testQuiz.getQuizId());	
 	}
 	
 	/**
-	 * tests addQuestion() & getQuestion() methods
+	 * checks that get quiz name returns correct value
 	 */
-/*	@Test
-	public void testAddQuestion() {
-		Question q = new QuestionImpl();
-		testQ.addQuestion(q);
-		Question outputQuestion = testQ.getQuestion(1);
-		assertNotNull(outputQuestion);
+	@Test
+	public void testGetQuizName(){
+	assertEquals(quizName,testQuiz.getQuizName());	
 	}
-*/
 	
-/*	@Test
-	public void testGetQuizId() {
-		intOutput = testQ.getQuizId();
-		intExpected = 707;
-		assertEquals(intExpected,intOutput);
-	}
-*/	/**
-	 * test setQuizName() & getQuizName() methods
-	 */
-/*	@Test
-	public void testSetQuizName() {
-		testQ.setQuizName("Lets get quizzical");
-		strOutput = testQ.getQuizName();
-		strExpected = "Lets get quizzical";
-		assertEquals(strExpected,strOutput);
-	}
-*/	
 	/**
-	 * test setHighScore() & getHighScore() methods
+	 * checks that addQuestionToQuiz throws an IllegalArgumentException when question is not valid
 	 */
-/*	@Test
-	public void testSetHighScore() {
-		testQ.setHighScore(8);
-		intOutput = testQ.getHighScore();
-		intExpected = 8;
+	@Test
+	public void testAddQuestionToQuizThrowsException(){
+		thrown.expect(IllegalArgumentException.class);
+		when(mockQuestion.isQuestionValid()).thenReturn(false);
+		testQuiz.addQuestionToQuiz(mockQuestion);
 	}
-*/
+
 	/**
-	 * test setCurrentWinner() & getCurrentWinner() methods
+	 * checks that addQuestionToQuiz & getQuestion methods work correctly
 	 */
-/*	@Test
-	public void testSetCurrentWinner() {
-		testQ.setCurrentWinner("Laura");
-		strOutput = testQ.getCurrentWinner();
-		assertEquals("Laura",strOutput);
+	@Test
+	public void testGetQuestion(){
+		when(mockQuestion.isQuestionValid()).thenReturn(true);
+		testQuiz.addQuestionToQuiz(mockQuestion);
+		Question output = testQuiz.getQuestion(2);
+		assertEquals(mockQuestion,output);
 	}
-*/	
+	
+	/**
+	 * checks that getQuestion throws an IndexOutOfBoundsException when called with an out of bounds index number
+	 */
+	@Test
+	public void testGetQuestionThrowsException(){
+		thrown.expect(IndexOutOfBoundsException.class);
+		testQuiz.getQuestion(3521);
+	}
+	
+	/**
+	 * checks that getCurrentWinner returns the correct value
+	 */
+	@Test
+	public void testGetCurrentWinner(){
+		assertEquals("",testQuiz.getCurrentWinner());
+	}
+	
+	/**
+	 * checks that getHighScore returns the correct value
+	 */
+	@Test
+	public void testGetHighScore(){
+		assertEquals(0,testQuiz.getHighScore());
+	}
+	
+	/**
+	 * checks that isQuizValid method returns the correct value
+	 */
+	@Test
+	public void testIsQuizValid(){
+		Quiz completeQuiz = new QuizImpl(44,"Complete Quiz");
+		assertTrue(completeQuiz.isQuizValid());
+		Quiz noIdQuiz = new QuizImpl(0,"No ID Quiz");
+		assertFalse(noIdQuiz.isQuizValid());
+		Quiz noNameQuiz = new QuizImpl(3,null);
+		assertFalse(noNameQuiz.isQuizValid());
+	}
+	
+	/**
+	 * Adds the player score to the quiz results list.  Checks whether this player score is the new high score and
+	 * if so requests the players name and stores the input with the quiz record
+	 * @param playerScore
+	 */
+	@Test
+	public void testSaveResult(){
+		testQuiz.saveResult(7);
+		assertEquals(7,testQuiz.getHighScore());
+	}
 }
 
 

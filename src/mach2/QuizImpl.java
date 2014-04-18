@@ -15,7 +15,7 @@ public class QuizImpl implements Quiz,Serializable {
 	List<Integer> playerResultsList;
 	int highScore;
 	String currentWinner;
-	
+
 	public QuizImpl(int quizId,String quizName){
 		this.quizId = quizId;
 		this.quizName = quizName;
@@ -24,7 +24,7 @@ public class QuizImpl implements Quiz,Serializable {
 		highScore = 0;
 		currentWinner = "";
 	}
-	
+
 	/**
 	 * Returns the quiz ID
 	 * @param int value representing the quiz ID
@@ -32,7 +32,7 @@ public class QuizImpl implements Quiz,Serializable {
 	public int getQuizId(){
 		return quizId;
 	}
-	
+
 	/**
 	 * Returns the Quiz Name
 	 * @return String of the quiz name
@@ -40,7 +40,7 @@ public class QuizImpl implements Quiz,Serializable {
 	public String getQuizName(){
 		return quizName;
 	}
-	
+
 	/**
 	 * Adds a question to the quiz question list
 	 * @param newQuestion
@@ -57,7 +57,7 @@ public class QuizImpl implements Quiz,Serializable {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Returns the question related to the question number passed to the method
 	 * @param questionNumber 
@@ -73,7 +73,7 @@ public class QuizImpl implements Quiz,Serializable {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * returns the current winner of the quiz
 	 * @return String of the current winner of the quiz
@@ -81,7 +81,7 @@ public class QuizImpl implements Quiz,Serializable {
 	public String getCurrentWinner(){
 		return currentWinner;
 	}
-	
+
 	/**
 	 * returns the current high score of the quiz
 	 * @return int value of the current high score of the quiz
@@ -89,7 +89,7 @@ public class QuizImpl implements Quiz,Serializable {
 	public int getHighScore(){
 		return highScore;
 	}
-	
+
 	/**
 	 * Checks whether the quiz is set up correctly with a quiz ID and name
 	 * @return boolean value of true if the quiz is valid or false if it is not
@@ -104,7 +104,7 @@ public class QuizImpl implements Quiz,Serializable {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Adds the player score to the quiz results list.  Checks whether this player score is the new high score and
 	 * if so requests the players name and stores the input with the quiz record
@@ -116,6 +116,9 @@ public class QuizImpl implements Quiz,Serializable {
 			highScore = playerScore;
 			System.out.println("Congratulations you have the highest score so far!  For posterity's sake please sign your name:");
 			currentWinner = System.console().readLine();
+			if(currentWinner != null){
+				System.out.println("Thank you " + currentWinner + " well done!");
+			}
 		}
 	}
 }
