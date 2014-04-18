@@ -42,6 +42,7 @@ public class QuestionTest {
 		strExpected = "Whats your favourite food?";
 		assertEquals(strExpected,strOutput);
 	}
+	
 	/**
 	 * tests setAnswers() method and also tests getAnswer() and getCorrectAnswer() methods
 	 */
@@ -59,6 +60,25 @@ public class QuestionTest {
 		assertEquals(charExpected,charOutput);
 	}
 
+	/**
+	 * Checks whether the question is set up correctly
+	 * @return boolean value reports whether a question is valid or not
+	 */
+	@Test
+	public void testIsQuestionValid(){
+		Question questionOutput = new QuestionImpl("Whats your favourite sport?","Football","Rugby","Cricket","Squash",'B');
+		assertTrue(questionOutput.isQuestionValid());
+		questionOutput = new QuestionImpl(null,"Football","Rugby","Cricket","Squash",'B');
+		assertFalse(questionOutput.isQuestionValid());
+		questionOutput = new QuestionImpl("Whats your favourite sport?",null,"Rugby","Cricket","Squash",'B');
+		assertFalse(questionOutput.isQuestionValid());
+		questionOutput = new QuestionImpl("Whats your favourite sport?","Football",null,"Cricket","Squash",'B');
+		assertFalse(questionOutput.isQuestionValid());
+		questionOutput = new QuestionImpl("Whats your favourite sport?","Football","Rugby",null,"Squash",'B');
+		assertFalse(questionOutput.isQuestionValid());
+		questionOutput = new QuestionImpl("Whats your favourite sport?","Football","Rugby","Cricket",null,'B');
+		assertFalse(questionOutput.isQuestionValid());
+	}
 }
 
 
