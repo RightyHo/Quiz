@@ -31,7 +31,8 @@ public class QuizServerImplTest {
 	@Before
 	public void setUp() throws Exception {
 	initMocks(this);
-	testServer = new QuizServerImpl();
+	when(mockIO.fileAlreadyExists()).thenReturn(false);
+	testServer = new QuizServerImpl(mockIO);
 	
 	}
 
@@ -70,7 +71,8 @@ public class QuizServerImplTest {
 	 * @param correctAnswer char indicating which answer is correct	 
 	 * @return Question
 	 */
-	public Question createNewQuestion(){
+	@Test
+	public void testCreateNewQuestion(){
 		testServer.createNewQuestion("Is there life after death?", "No", "yes", "re-incarnation", "in a way yes...you become part of the plants/animals that feed on your bodies minerals", 'd');
 		verify(mockQuizStore).createNewQuestion(anyString(), anyString(),anyString(),anyString(),anyString(), 'd');
 	}
@@ -80,7 +82,8 @@ public class QuizServerImplTest {
 	 * @param quizId
 	 * @return Quiz 
 	 */
-	public Quiz getQuiz(){
+	@Test
+	public void testGetQuiz(){
 	}
 	
 	/**
@@ -89,21 +92,24 @@ public class QuizServerImplTest {
 	 * @param playerName
 	 * @return PlayerAttempt 
 	 */
-	public PlayerAttempt getQuizAttempt(){
+	@Test
+	public void testgetQuizAttempt(){
 	}
 	
 	/**
 	 * Returns a list of the available quizzes a user can play
 	 * @return List of string values representing the available quizzes a user can play
 	 */
-	public List<String> getAvaliableQuizList(){
+	@Test
+	public void testGetAvaliableQuizList(){
 	}
 	
 	/**
 	 * Adds a mark to the players score 
 	 * @param game a player attempt based on a certain quiz
 	 */
-	public void addMarkToScore(){
+	@Test
+	public void testAddMarkToScore(){
 
 	}
 	
@@ -112,7 +118,8 @@ public class QuizServerImplTest {
 	 * @param game a player attempt based on a certain quiz
 	 * @return int value of the player score
 	 */
-	public int getPlayerScore(){
+	@Test
+	public void testGetPlayerScore(){
 	}
 	
 	/**
@@ -120,7 +127,8 @@ public class QuizServerImplTest {
 	 * @param newQuiz
 	 * @throws RemoteException
 	 */
-	public void saveQuiz(){
+	@Test
+	public void testSaveQuiz(){
 		
 	}
 	
@@ -129,7 +137,8 @@ public class QuizServerImplTest {
 	 * @param game a player attempt
 	 * @throws RemoteException
 	 */
-	public void saveResult(){
+	@Test
+	public void testSaveResult(){
 		
 	}
 	
@@ -138,7 +147,8 @@ public class QuizServerImplTest {
 	 * @param quizId
 	 * @throws RemoteException
 	 */
-	public void closeQuizGame(){
+	@Test
+	public void testCloseQuizGame(){
 		
 	}
 }
