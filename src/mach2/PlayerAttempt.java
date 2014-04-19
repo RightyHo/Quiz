@@ -31,4 +31,9 @@ public interface PlayerAttempt {
 	 */
 	Quiz getQuiz();
 
+	/**
+	 * Returns the name of the player attempting the quiz
+	 * @return String value of the player name
+	 */
+	String getPlayerName();
 }

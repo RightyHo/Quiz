@@ -109,16 +109,19 @@ public class QuizImpl implements Quiz,Serializable {
 	 * Adds the player score to the quiz results list.  Checks whether this player score is the new high score and
 	 * if so requests the players name and stores the input with the quiz record
 	 * @param playerScore
+	 * @param playerName
 	 */
-	public void saveResult(int playerScore){
+	public void saveResult(int playerScore,String playerName){
 		playerResultsList.add(playerScore);
 		if(playerScore > highScore){
 			highScore = playerScore;
-			System.out.println("Congratulations you have the highest score so far!  For posterity's sake please sign your name:");
-			currentWinner = System.console().readLine();
+			System.out.println("Congratulations " + playerName + " you have the highest score so far!");
+			currentWinner = playerName;
 			if(currentWinner != null){
-				System.out.println("Thank you " + currentWinner + " well done!");
+				System.out.println("Current Winner: " + currentWinner + " ...well done!");
 			}
+		} else {
+			System.out.println("Better luck next time " + playerName + " the highest score on this quiz is " + playerScore);
 		}
 	}
 }

@@ -56,17 +56,18 @@ public class QuizStoreImpl implements QuizStore,Serializable {
 	/**
 	 * Returns a new player quiz attempt object based on the quiz that corresponds to the quiz name passed to the method
 	 * @param quizName
+	 * @param playerName
 	 * @return PlayerAttempt 
 	 * @throws IllegalArgumentException
 	 */
-	public PlayerAttempt getQuizAttempt(String quizName){
+	public PlayerAttempt getQuizAttempt(String quizName,String playerName){
 		PlayerAttempt result = null;
-		if(quizName == null){
+		if(quizName == null || playerName == null){
 			throw new IllegalArgumentException();
 		} else {
 			for(Quiz q : quizList){
 				if(q.getQuizName().equals(quizName)){
-					result = new PlayerAttemptImpl(q);
+					result = new PlayerAttemptImpl(q,playerName);
 					break;
 				}
 			}

@@ -40,9 +40,10 @@ public interface QuizServer {
 	/**
 	 * Returns a new player quiz attempt object based on the quiz that corresponds to the quiz name passed to the method
 	 * @param quizName
+	 * @param playerName
 	 * @return PlayerAttempt 
 	 */
-	PlayerAttempt getQuizAttempt(String quizName);
+	PlayerAttempt getQuizAttempt(String quizName,String playerName);
 	
 	/**
 	 * Returns a list of the available quizzes a user can play

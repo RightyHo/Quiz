@@ -20,7 +20,7 @@ public class PlayerClient {
 	}
 	
 	public static void main(String[] args){
-		//read imput string from console
+		//read input string from console
 		String para = args[0];
 		PlayerClient pc = new PlayerClient();
 		pc.launch(para);
@@ -76,7 +76,9 @@ public class PlayerClient {
 		}
 		System.out.println("Please key in the name of the quiz you wish to play: ");
 		String selection = System.console().readLine();
-		game = quizGameService.getQuizAttempt(selection);
+		System.out.println("Please Enter your name: ");
+		String player = System.console().readLine();
+		game = quizGameService.getQuizAttempt(selection,player);
 		if(game != null){
 			if(game.getQuiz().isQuizValid() == false){
 				System.out.println("Error -  you cannot play an invalid quiz!");

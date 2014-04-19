@@ -62,7 +62,6 @@ public class QuestionTest {
 
 	/**
 	 * Checks whether the question is set up correctly
-	 * @return boolean value reports whether a question is valid or not
 	 */
 	@Test
 	public void testIsQuestionValid(){

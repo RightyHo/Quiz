@@ -2,9 +2,6 @@ package mach2;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.rules.ExpectedException;
 import org.junit.After;
 import org.junit.Before;
@@ -118,13 +115,11 @@ public class QuizTest {
 	}
 	
 	/**
-	 * Adds the player score to the quiz results list.  Checks whether this player score is the new high score and
-	 * if so requests the players name and stores the input with the quiz record
-	 * @param playerScore
+	 * checks that saveResult method stores the correct values
 	 */
 	@Test
 	public void testSaveResult(){
-		testQuiz.saveResult(7);
+		testQuiz.saveResult(7,"Andrew");
 		assertEquals(7,testQuiz.getHighScore());
 	}
 }

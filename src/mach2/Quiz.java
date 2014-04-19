@@ -52,6 +52,7 @@ public interface Quiz {
 	 * Adds the player score to the quiz results list.  Checks whether this player score is the new high score and
 	 * if so requests the players name and stores the input with the quiz record
 	 * @param playerScore
+	 * @param playerName
 	 */
-	void saveResult(int playerScore);
+	public void saveResult(int playerScore,String playerName);
 }

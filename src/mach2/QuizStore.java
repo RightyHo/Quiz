@@ -27,10 +27,11 @@ public interface QuizStore {
 	/**
 	 * Returns a new player quiz attempt object based on the quiz that corresponds to the quiz name passed to the method
 	 * @param quizName
+	 * @param playerName
 	 * @return PlayerAttempt 
 	 * @throws IllegalArgumentException
 	 */
-	PlayerAttempt getQuizAttempt(String quizName);
+	PlayerAttempt getQuizAttempt(String quizName,String playerName);
 
 	/**
 	 * Returns the quiz corresponding to a particular quiz ID

@@ -67,10 +67,11 @@ public class QuizServerImpl extends UnicastRemoteObject implements QuizServer, S
 	/**
 	 * Returns a new player quiz attempt object based on the quiz that corresponds to the quiz name passed to the method
 	 * @param quizName
+	 * @param playerName
 	 * @return PlayerAttempt 
 	 */
-	public PlayerAttempt getQuizAttempt(String quizName){
-		return quizStore.getQuizAttempt(quizName);
+	public PlayerAttempt getQuizAttempt(String quizName,String playerName){
+		return quizStore.getQuizAttempt(quizName,playerName);
 	}
 	
 	/**
