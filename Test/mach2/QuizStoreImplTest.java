@@ -31,6 +31,9 @@ public class QuizStoreImplTest {
 	@Mock
 	private Question mockQuestion;
 	
+	@Mock
+	private PlayerAttempt mockedPA;
+	
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 	
@@ -39,6 +42,8 @@ public class QuizStoreImplTest {
 		initMocks(this);
 		testQS = new QuizStoreImpl();
 		when(mockInitialQuiz.isQuizValid()).thenReturn(true);
+		when(mockInitialQuiz.getQuizId()).thenReturn(14);
+		when(mockInitialQuiz.getQuizName()).thenReturn("What was the best movie of 2013?");
 		testQS.saveQuiz(mockInitialQuiz);
 	}
 
@@ -92,54 +97,74 @@ public class QuizStoreImplTest {
 	}
 	
 	/**
-	 * ***Error - outputPA currently returning a null pointer***should i be testing by using a mockQuizList???
+	 * ***Error - outputPA currently returning a null pointer****should i be testing by using a mockQuizList???****
 	 */
 	@Test
 	public void testGetQuizAttempt(){
-		PlayerAttempt mockedPA = mock(PlayerAttempt.class);
 		when(mockedPA.getPlayerName()).thenReturn("Nicky");
 		when(mockQuiz.getQuizName()).thenReturn(quizName);
 		PlayerAttempt outputPA = testQS.getQuizAttempt(quizName,"Nicky");
-		assertEquals(mockedPA.getPlayerName(),outputPA.getPlayerName());
+		assertNotNull(outputPA);
 	}
 
 	/**
-	 * Returns the quiz corresponding to a particular quiz ID
-	 * @param quizId
-	 * @return Quiz 
+	 * checks that the getQuiz() method returns the quiz corresponding to a particular quiz ID or null if the quiz ID is not valid
 	 */
 	@Test
 	public void testGetQuiz(){
-		Quiz outputQuiz = testQS.getQuiz(1);
-		
-		
+		Quiz outputQuiz = testQS.getQuiz(14);
+		assertNotNull(outputQuiz);
+		Quiz outputNullQuiz = testQS.getQuiz(333);
+		assertNull(outputNullQuiz);
 	}
 
 	/**
-	 * Returns a list of the available quizzes a user can play
-	 * @return List of string values representing the available quizzes a user can play
+	 * checks that the getAvailableQuizList() method returns a correct list of the available quizzes
 	 */
-	public List<String> getAvailableQuizList(){
-
+	@Test
+	public void testGetAvailableQuizList(){
+		List<String> outputList = testQS.getAvailableQuizList();
+		for(String s : outputList){
+		System.out.println(s);
+		}
+		assertTrue(outputList.size() == 1);
 	}
 
 	/**
-	 * Adds a mark to the players score 
-	 * @param game a player attempt based on a certain quiz
-	 * @throws IllegalArgumentException
+	 * check that addMarkToScore() method throws IllegalArgumentException when passed a null player attempt object
 	 */
-	public void addMarkToScore(){
-
+	@Test
+	public void testAddMarkToScoreWithNullPlayerAttempt(){
+		thrown.expect(IllegalArgumentException.class);
+		testQS.addMarkToScore(null);
 	}
 
 	/**
-	 * Returns the player score for a particular player attempt of a quiz
-	 * @param game a player attempt based on a certain quiz
-	 * @return int value of the player score
-	 * @throws IllegalArgumentException
+	 * checks that addMarkToScore() method invokes a corresponding method call on the PlayerAttempt class which is its parameter
 	 */
-	public int getPlayerScore(){
+	@Test
+	public void testAddMarkToScore(){
+		testQS.addMarkToScore(mockedPA);
+		verify(mockedPA).addMarkToScore();
+	}
 	
+	/**
+	 * check that getPlayerScore() method throws IllegalArgumentException when passed a null player attempt object
+	 */
+	@Test
+	public void testGetPlayerScoreWithNullPlayerAttempt(){
+		thrown.expect(IllegalArgumentException.class);
+		testQS.getPlayerScore(null);
+	}
+	
+	/**
+	 * check that getPlayerScore() method returns the correct value 
+	 */
+	@Test
+	public void testGetPlayerScore(){
+		when(mockedPA.getPlayerScore()).thenReturn(6);
+		int outputScore = testQS.getPlayerScore(mockedPA);
+		assertEquals(6,outputScore);
 	}
 
 	/**
@@ -147,10 +172,22 @@ public class QuizStoreImplTest {
 	 * @param newQuiz
 	 * @throws IllegalArgumentException
 	 */
-	public void saveQuiz(){
-
+	@Test
+	public void testSaveQuizWithNullQuiz(){
+		thrown.expect(IllegalArgumentException.class);
+		testQS.saveQuiz(null);
 	}
 
+	/**
+	 * Adds a new quiz to the quiz list and saves it to disk
+	 * @param newQuiz
+	 * @throws IllegalArgumentException
+	 */
+	@Test
+	public void testSaveQuiz(){
+
+	}
+	
 	/**
 	 * Adds the result of a player attempt to the results list and saves it to disk
 	 * @param game a player attempt

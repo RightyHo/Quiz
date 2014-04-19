@@ -142,10 +142,14 @@ public class QuizStoreImpl implements QuizStore,Serializable {
 	 * @throws IllegalArgumentException
 	 */
 	public void saveQuiz(Quiz newQuiz){
-		if(newQuiz.isQuizValid() == false){
+		if(newQuiz != null){
+			if(newQuiz.isQuizValid() == false){
+				throw new IllegalArgumentException();
+			} else{
+				quizList.add(newQuiz);
+			}
+		} else {
 			throw new IllegalArgumentException();
-		} else{
-			quizList.add(newQuiz);
 		}
 	}
 
