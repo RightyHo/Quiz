@@ -15,13 +15,22 @@ public class QuizServerImpl extends UnicastRemoteObject implements QuizServer, S
 	private static final String fileName = "quizFile.ser";
 	
 	public QuizServerImpl() throws RemoteException {
-		io = new InputOutputImpl(fileName);
+		io = new InputOutputImpl(fileName);				//could perhaps separate this out into a new method if that helps program run/test more easily?
 		if(io.fileAlreadyExists()){
 			Object[] obj = io.readFromDisk();
 			quizStore = (QuizStore) obj[0];
 		} else {
 			quizStore = new QuizStoreImpl();
 		}
+	}
+	
+	public InputOutput createNewIO(){
+		return new InputOutputImpl(fileName);	
+
+	}
+	
+	public Object[] readFromDisk(InputOutput io){
+		return io.readFromDisk();
 	}
 	
 	/**

@@ -2,7 +2,6 @@ package mach2;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -79,7 +78,7 @@ public class QuizStoreImplTest {
 	}
 
 	/**
-	 * check that getQuizAttempt() method throws an IllegalArgumentException when passed a null quiz name
+	 * checks that getQuizAttempt() method throws an IllegalArgumentException when passed a null quiz name
 	 */
 	@Test
 	public void testGetQuizAttemptWithNullQuizName(){
@@ -88,7 +87,7 @@ public class QuizStoreImplTest {
 	}
 
 	/**
-	 * check that getQuizAttempt() method throws an IllegalArgumentException when passed a null player name
+	 * checks that getQuizAttempt() method throws an IllegalArgumentException when passed a null player name
 	 */
 	@Test
 	public void testGetQuizAttemptWithNullPlayerName(){
@@ -131,7 +130,7 @@ public class QuizStoreImplTest {
 	}
 
 	/**
-	 * check that addMarkToScore() method throws IllegalArgumentException when passed a null player attempt object
+	 * checks that addMarkToScore() method throws IllegalArgumentException when passed a null player attempt object
 	 */
 	@Test
 	public void testAddMarkToScoreWithNullPlayerAttempt(){
@@ -158,7 +157,7 @@ public class QuizStoreImplTest {
 	}
 	
 	/**
-	 * check that getPlayerScore() method returns the correct value 
+	 * checks that getPlayerScore() method returns the correct value 
 	 */
 	@Test
 	public void testGetPlayerScore(){
@@ -210,8 +209,7 @@ public class QuizStoreImplTest {
 	}
 	
 	/**
-	 * Closes the quiz game referenced by a particular quiz ID and saves the quiz store to disk
-	 * @param quizId
+	 * checks that closeQuizGame() method closes the quiz game referenced by a particular quiz ID 
 	 */
 	@Test
 	public void testCloseQuizGame(){
