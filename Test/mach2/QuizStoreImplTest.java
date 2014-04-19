@@ -168,9 +168,7 @@ public class QuizStoreImplTest {
 	}
 
 	/**
-	 * Adds a new quiz to the quiz list and saves it to disk
-	 * @param newQuiz
-	 * @throws IllegalArgumentException
+	 * checks that saveQuiz() method throws IllegalArgumentException when passed a null Quiz
 	 */
 	@Test
 	public void testSaveQuizWithNullQuiz(){
@@ -179,30 +177,85 @@ public class QuizStoreImplTest {
 	}
 
 	/**
-	 * Adds a new quiz to the quiz list and saves it to disk
-	 * @param newQuiz
-	 * @throws IllegalArgumentException
+	 * checks that saveQuiz() method adds a new quiz to the quiz list
 	 */
 	@Test
 	public void testSaveQuiz(){
-
+		Quiz mockedNewQuiz = mock(Quiz.class);
+		when(mockedNewQuiz.isQuizValid()).thenReturn(true);
+		when(mockedNewQuiz.getQuizId()).thenReturn(777);
+		when(mockedNewQuiz.getQuizName()).thenReturn("I hope this works?");
+		testQS.saveQuiz(mockedNewQuiz);
+		Quiz outputQuiz = testQS.getQuiz(777);
+		assertEquals("I hope this works?",outputQuiz.getQuizName());
 	}
 	
 	/**
-	 * Adds the result of a player attempt to the results list and saves it to disk
-	 * @param game a player attempt
-	 * @throws IllegalArgumentException
+	 * checks that saveQuiz() method throws IllegalArgumentException when passed a null Quiz
 	 */
-	public void saveResult(){
-
+	@Test
+	public void testSaveResultWithNullPlayerAttemp(){
+		thrown.expect(IllegalArgumentException.class);
+		testQS.saveResult(null);
+	}
+	
+	/**
+	 * checks that saveResult() method invokes the saveResult() method on the PlayerAttempt object passed as its object
+	 */
+	@Test
+	public void testSaveResult(){
+		PlayerAttempt mockedAttempt = mock(PlayerAttempt.class);
+		testQS.saveResult(mockedAttempt);
+		verify(mockedAttempt).saveResult();
 	}
 	
 	/**
 	 * Closes the quiz game referenced by a particular quiz ID and saves the quiz store to disk
 	 * @param quizId
 	 */
-	public void closeQuizGame(){
-		
+	@Test
+	public void testCloseQuizGame(){
+		Quiz mockedQuizToClose = mock(Quiz.class);
+		when(mockedQuizToClose.isQuizValid()).thenReturn(true);
+		when(mockedQuizToClose.getQuizId()).thenReturn(312);
+		when(mockedQuizToClose.getQuizName()).thenReturn("Short Lived Quiz");
+		testQS.saveQuiz(mockedQuizToClose);
+		List<String> howLongIsThisList = testQS.getAvailableQuizList();
+		int listLength = howLongIsThisList.size();
+		testQS.closeQuizGame(312);
+		howLongIsThisList =  testQS.getAvailableQuizList();
+		int outputLength = howLongIsThisList.size();
+		assertTrue(outputLength < listLength);
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
