@@ -21,6 +21,9 @@ public class QuizStoreImplTest {
 	
 	@Mock
 	private List<Quiz> mockQuizList;
+
+	@Mock
+	private Quiz mockInitialQuiz;
 	
 	@Mock
 	private Quiz mockQuiz;
@@ -35,6 +38,8 @@ public class QuizStoreImplTest {
 	public void setUp() throws Exception {
 		initMocks(this);
 		testQS = new QuizStoreImpl();
+		when(mockInitialQuiz.isQuizValid()).thenReturn(true);
+		testQS.saveQuiz(mockInitialQuiz);
 	}
 
 	@After
@@ -69,14 +74,33 @@ public class QuizStoreImplTest {
 	}
 
 	/**
-	 * Returns a new player quiz attempt object based on the quiz that corresponds to the quiz name passed to the method
-	 * @param quizName
-	 * @param playerName
-	 * @return PlayerAttempt 
-	 * @throws IllegalArgumentException
+	 * check that getQuizAttempt() method throws an IllegalArgumentException when passed a null quiz name
 	 */
-	public PlayerAttempt getQuizAttempt(){
+	@Test
+	public void testGetQuizAttemptWithNullQuizName(){
+		thrown.expect(IllegalArgumentException.class);
+		testQS.getQuizAttempt(null,"Ken");
+	}
 
+	/**
+	 * check that getQuizAttempt() method throws an IllegalArgumentException when passed a null player name
+	 */
+	@Test
+	public void testGetQuizAttemptWithNullPlayerName(){
+		thrown.expect(IllegalArgumentException.class);
+		testQS.getQuizAttempt(quizName,null);
+	}
+	
+	/**
+	 * ***Error - outputPA currently returning a null pointer***should i be testing by using a mockQuizList???
+	 */
+	@Test
+	public void testGetQuizAttempt(){
+		PlayerAttempt mockedPA = mock(PlayerAttempt.class);
+		when(mockedPA.getPlayerName()).thenReturn("Nicky");
+		when(mockQuiz.getQuizName()).thenReturn(quizName);
+		PlayerAttempt outputPA = testQS.getQuizAttempt(quizName,"Nicky");
+		assertEquals(mockedPA.getPlayerName(),outputPA.getPlayerName());
 	}
 
 	/**
@@ -84,8 +108,11 @@ public class QuizStoreImplTest {
 	 * @param quizId
 	 * @return Quiz 
 	 */
-	public Quiz getQuiz(){
-
+	@Test
+	public void testGetQuiz(){
+		Quiz outputQuiz = testQS.getQuiz(1);
+		
+		
 	}
 
 	/**

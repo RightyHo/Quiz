@@ -66,9 +66,11 @@ public class QuizStoreImpl implements QuizStore,Serializable {
 			throw new IllegalArgumentException();
 		} else {
 			for(Quiz q : quizList){
-				if(q.getQuizName().equals(quizName)){
-					result = new PlayerAttemptImpl(q,playerName);
-					break;
+				if(q.getQuizName() != null){
+					if(q.getQuizName().equals(quizName)){
+						result = new PlayerAttemptImpl(q,playerName);
+						return result;
+					}
 				}
 			}
 		}
@@ -85,7 +87,7 @@ public class QuizStoreImpl implements QuizStore,Serializable {
 		for(Quiz q : quizList){
 			if(q.getQuizId() == quizId){
 				result = q;
-				break;
+				return result;
 			}
 		}
 		return result;
@@ -159,7 +161,7 @@ public class QuizStoreImpl implements QuizStore,Serializable {
 			game.saveResult();
 		}
 	}
-	
+
 	/**
 	 * Closes the quiz game referenced by a particular quiz ID and saves the quiz store to disk
 	 * @param quizId
