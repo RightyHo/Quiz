@@ -70,7 +70,7 @@ public class PlayerClient {
 	 */
 	private void playQuiz() throws RemoteException{
 		System.out.println("Please select a quiz from the available list below: ");
-		List<String> sList = quizGameService.getAvaliableQuizList();
+		List<String> sList = quizGameService.getAvailableQuizList();
 		for(String s : sList){
 			System.out.println(s);
 		}

@@ -7,10 +7,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 
-public class InputOutputImpl implements InputOutput {
+public class InputOutputImpl implements InputOutput,Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4305952265804111068L;
 	private String fileName;
 	
 	public InputOutputImpl(String fileName){

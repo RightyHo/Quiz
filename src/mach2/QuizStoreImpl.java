@@ -67,6 +67,7 @@ public class QuizStoreImpl implements QuizStore,Serializable {
 		} else {
 			for(Quiz q : quizList){
 				if(q.getQuizName() != null){
+					System.out.println(q.getQuizName());
 					if(q.getQuizName().equals(quizName)){
 						result = new PlayerAttemptImpl(q,playerName);
 						return result;

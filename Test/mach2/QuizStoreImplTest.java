@@ -100,9 +100,7 @@ public class QuizStoreImplTest {
 	 */
 	@Test
 	public void testGetQuizAttempt(){
-		when(mockedPA.getPlayerName()).thenReturn("Nicky");
-		when(mockQuiz.getQuizName()).thenReturn(quizName);
-		PlayerAttempt outputPA = testQS.getQuizAttempt(quizName,"Nicky");
+		PlayerAttempt outputPA = testQS.getQuizAttempt("What was the best movie of 2013?","Nicky");
 		assertNotNull(outputPA);
 	}
 
