@@ -38,6 +38,7 @@ public class SetUpClient {
 		SetUpClient su = new SetUpClient();
 		su.launch();
 	}
+	
 	private void launch(){
 		// If there is no security manager, start one
 		if (System.getSecurityManager() == null) {
@@ -77,6 +78,7 @@ public class SetUpClient {
 			ex.printStackTrace();
 		}
 	}
+	
 	/**
 	 * Enable a user to create a new quiz 
 	 * @throws RemoteException 

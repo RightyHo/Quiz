@@ -3,7 +3,6 @@ package mach2;
 import java.rmi.RemoteException;
 
 import org.junit.rules.ExpectedException;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,11 +33,6 @@ public class QuizServerImplTest {
 	initMocks(this);
 	when(mockIO.fileAlreadyExists()).thenReturn(false);
 	testServer = new QuizServerImpl(mockQuizStore,mockIO);
-	
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 
 	/**

@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -44,10 +43,6 @@ public class QuizStoreImplTest {
 		when(mockInitialQuiz.getQuizId()).thenReturn(14);
 		when(mockInitialQuiz.getQuizName()).thenReturn("What was the best movie of 2013?");
 		testQS.saveQuiz(mockInitialQuiz);
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 
 	/**

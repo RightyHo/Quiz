@@ -92,7 +92,7 @@ public class QuizServerImpl extends UnicastRemoteObject implements QuizServer, S
 	/**
 	 * Returns the player score for a particular player attempt of a quiz
 	 * @param game a player attempt based on a certain quiz
-	 * @return int value of the player score
+	 * @return integer value of the player score
 	 */
 	public int getPlayerScore(PlayerAttempt game){
 		return quizStore.getPlayerScore(game);

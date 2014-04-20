@@ -16,7 +16,7 @@ public interface PlayerAttempt {
 	
 	/**
 	 * Returns the player score
-	 * @return int value of the player score
+	 * @return integer value of the player score
 	 */
 	int getPlayerScore();
 	

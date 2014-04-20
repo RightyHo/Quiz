@@ -39,7 +39,7 @@ public class PlayerAttemptImpl implements PlayerAttempt, Serializable {
 	
 	/**
 	 * Returns the player score
-	 * @return int value of the player score
+	 * @return integer value of the player score
 	 */
 	public int getPlayerScore(){
 		return playerScore;

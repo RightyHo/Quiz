@@ -24,6 +24,7 @@ public class QuestionImpl implements Question, Serializable {
 		answerD = "";
 		correctAnswer = '?';
 	}
+
 	public QuestionImpl(String question,String answerA,String answerB,String answerC,String answerD,char correctAnswer){
 		this.question = question;
 		this.answerA = answerA;
@@ -32,6 +33,7 @@ public class QuestionImpl implements Question, Serializable {
 		this.answerD = answerD;
 		this.correctAnswer = correctAnswer;
 	}
+
 	/**
 	 * Sets the question string
 	 * @param question a string
@@ -39,6 +41,7 @@ public class QuestionImpl implements Question, Serializable {
 	public void setQuestion(String question){
 		this.question = question;
 	}
+	
 	/**
 	 * Returns the question string
 	 * @return question string
@@ -46,6 +49,7 @@ public class QuestionImpl implements Question, Serializable {
 	public String getQuestion(){
 		return question;
 	}
+	
 	/**
 	 * Sets the four possible answer fields and indicates which one of them is the correct answer
 	 * @param answerA possible answer string
@@ -61,6 +65,7 @@ public class QuestionImpl implements Question, Serializable {
 		this.answerD = answerD;
 		this.correctAnswer = correctAnswer;
 	}
+	
 	/**
 	 * Returns the requested possible answer
 	 * @param whichAnswer a char denoting which answer A,B,C or D is being requested
@@ -80,6 +85,7 @@ public class QuestionImpl implements Question, Serializable {
 			throw new IllegalArgumentException();
 		}
 	}
+	
 	/**
 	 * Returns the letter that represents the correct possible answer to the question
 	 * @return char the letter of the correct answer
@@ -87,6 +93,7 @@ public class QuestionImpl implements Question, Serializable {
 	public char getCorrectAnswer(){
 		return correctAnswer;
 	}
+	
 	/**
 	 * Checks whether the question is set up correctly
 	 * @return boolean value reports whether a question is valid or not

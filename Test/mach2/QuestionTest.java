@@ -2,7 +2,6 @@ package mach2;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,10 +21,6 @@ public class QuestionTest {
 		strExpected = "";
 		intOutput = 0;
 		intExpected = 0;
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 
 	@Test

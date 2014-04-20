@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,10 +35,6 @@ public class PlayerAttemptImplTest {
 		initMocks(this);
 		testPA = new PlayerAttemptImpl(mockQuiz,playerName);
 		when(mockQuiz.isQuizValid()).thenReturn(true);
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 
 	/**

@@ -3,7 +3,6 @@ package mach2;
 import static org.junit.Assert.*;
 
 import org.junit.rules.ExpectedException;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,10 +32,6 @@ public class QuizTest {
 		testQuiz = new QuizImpl(quizId,quizName);
 		when(mockInitialQuestion.isQuestionValid()).thenReturn(true);
 		testQuiz.addQuestionToQuiz(mockInitialQuestion);
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 	
 	/**
