@@ -10,17 +10,16 @@ public class QuizServerImpl extends UnicastRemoteObject implements QuizServer, S
 	 * 
 	 */
 	private static final long serialVersionUID = -602715859520900105L;
-	QuizStore quizStore;
-	InputOutput io;
-	private static final String fileName = "quizFile.ser";
+	private QuizStore quizStore;
+	private InputOutput io;
 	
-	public QuizServerImpl(InputOutput io) throws RemoteException {
-		this.io = io;				//could perhaps separate this out into a new method if that helps program run/test more easily?
+	public QuizServerImpl(QuizStore quizStore,InputOutput io) throws RemoteException {
+		this.io = io;				
 		if(io.fileAlreadyExists()){
 			Object[] obj = io.readFromDisk();
-			quizStore = (QuizStore) obj[0];
+			this.quizStore = (QuizStore) obj[0];
 		} else {
-			quizStore = new QuizStoreImpl();
+			this.quizStore = quizStore;
 		}
 	}
 	

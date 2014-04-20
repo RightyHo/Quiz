@@ -32,7 +32,7 @@ public class QuizServerImplTest {
 	public void setUp() throws Exception {
 	initMocks(this);
 	when(mockIO.fileAlreadyExists()).thenReturn(false);
-	testServer = new QuizServerImpl(mockIO);
+	testServer = new QuizServerImpl(mockQuizStore,mockIO);
 	
 	}
 

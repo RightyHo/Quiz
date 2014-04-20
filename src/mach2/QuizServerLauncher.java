@@ -13,8 +13,8 @@ public class QuizServerLauncher {
 	private static final String fileName = "quizFile.ser";
 	
 	public static void main(String[] args){
-		QuizServerLauncher qG = new QuizServerLauncher();
-		qG.launch();
+		QuizServerLauncher qs = new QuizServerLauncher();
+		qs.launch();
 	}
 	
 	private void launch(){
@@ -25,9 +25,10 @@ public class QuizServerLauncher {
 		try{
 			//create the registry if there is not one
 			LocateRegistry.createRegistry(1099);
-			//create the server object
+			//initialises a new quizStore object, a new InputOutput object and creates the server object
+			QuizStore quizStore = new QuizStoreImpl();
 			InputOutput io = new InputOutputImpl(fileName);
-			QuizServer server = new QuizServerImpl(io);
+			QuizServer server = new QuizServerImpl(quizStore,io);
 			//register (bind) the server object on the registry - the registry may be on a different machine
 			String registryHost = "//localhost/";
 			String serviceName = "quiz";
