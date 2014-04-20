@@ -25,7 +25,7 @@ public class QuizServerLauncher {
 		try{
 			//create the registry if there is not one
 			LocateRegistry.createRegistry(1099);
-			//initialises a new quizStore object, a new InputOutput object and creates the server object
+			//initializes a new quizStore object, a new InputOutput object and creates the server object
 			QuizStore quizStore = new QuizStoreImpl();
 			InputOutput io = new InputOutputImpl(fileName);
 			QuizServer server = new QuizServerImpl(quizStore,io);

@@ -35,7 +35,7 @@ public class SetUpClient {
 	}
 
 	public static void main(String[] args){
-		//read imput string from console
+		//read input string from console
 		String para = args[0];
 		SetUpClient su = new SetUpClient();
 		su.launch(para);
