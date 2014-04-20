@@ -27,7 +27,7 @@ public class QuizImpl implements Quiz,Serializable {
 
 	/**
 	 * Returns the quiz ID
-	 * @param int value representing the quiz ID
+	 * @return integer value representing the quiz ID
 	 */
 	public int getQuizId(){
 		return quizId;
@@ -84,7 +84,7 @@ public class QuizImpl implements Quiz,Serializable {
 
 	/**
 	 * returns the current high score of the quiz
-	 * @return int value of the current high score of the quiz
+	 * @return integer value of the current high score of the quiz
 	 */
 	public int getHighScore(){
 		return highScore;

@@ -4,7 +4,7 @@ public interface Quiz {
 
 	/**
 	 * Returns the quiz ID
-	 * @param int value representing the quiz ID
+	 * @return integer value representing the quiz ID
 	 */
 	int getQuizId();
 	
@@ -38,7 +38,7 @@ public interface Quiz {
 	
 	/**
 	 * returns the current high score of the quiz
-	 * @return int value of the current high score of the quiz
+	 * @return integer value of the current high score of the quiz
 	 */
 	int getHighScore();
 	
