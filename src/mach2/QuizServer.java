@@ -49,7 +49,7 @@ public interface QuizServer {
 	 * Returns a list of the available quizzes a user can play
 	 * @return List of string values representing the available quizzes a user can play
 	 */
-	List<String> getAvaliableQuizList();
+	List<String> getAvailableQuizList();
 	
 	/**
 	 * Adds a mark to the players score 

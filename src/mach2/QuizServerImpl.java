@@ -77,7 +77,7 @@ public class QuizServerImpl extends UnicastRemoteObject implements QuizServer, S
 	 * Returns a list of the available quizzes a user can play
 	 * @return List of string values representing the available quizzes a user can play
 	 */
-	public List<String> getAvaliableQuizList(){
+	public List<String> getAvailableQuizList(){
 		return quizStore.getAvailableQuizList();
 	}
 	

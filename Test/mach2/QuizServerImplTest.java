@@ -1,7 +1,5 @@
 package mach2;
 
-import static org.junit.Assert.*;
-
 import java.rmi.RemoteException;
 
 import org.junit.rules.ExpectedException;
@@ -25,6 +23,9 @@ public class QuizServerImplTest {
 	@Mock
 	private InputOutput mockIO;
 	
+	@Mock
+	private PlayerAttempt mockPA;
+	
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 	
@@ -41,8 +42,7 @@ public class QuizServerImplTest {
 	}
 
 	/**
-	 * Saves the quizStore to disk
-	 * @throws RemoteException
+	 * checks that flush() method invokes a saveToDisk() method call on the QuizStore class
 	 */
 	@Test
 	public void testFlush() throws RemoteException{
@@ -51,9 +51,7 @@ public class QuizServerImplTest {
 	}
 	
 	/**
-	 * Creates a new quiz
-	 * @param quizName
-	 * @return Quiz
+	 * checks that createNewQuiz() method invokes a createNewQuiz() method call on the QuizStore class
 	 */
 	@Test
 	public void testCreateNewQuiz(){
@@ -62,94 +60,89 @@ public class QuizServerImplTest {
 	}
 	
 	/**
-	 * Creates a new question object, sets the quiz question, four possible answer fields and indicates which one of them is the correct answer
-	 * @param inputQ question string
-	 * @param answerA possible answer string
-	 * @param answerB possible answer string	
-	 * @param answerC possible answer string	
-	 * @param answerD possible answer string	
-	 * @param correctAnswer char indicating which answer is correct	 
-	 * @return Question
+	 * checks that createNewQuestion() method invokes a createNewQuestion() method call on the QuizStore class
 	 */
 	@Test
 	public void testCreateNewQuestion(){
-		testServer.createNewQuestion("Is there life after death?", "No", "yes", "re-incarnation", "in a way yes...you become part of the plants/animals that feed on your bodies minerals", 'd');
-		verify(mockQuizStore).createNewQuestion(anyString(), anyString(),anyString(),anyString(),anyString(), 'd');
+		testServer.createNewQuestion("Is there life after death?", "No", "yes", "re-incarnation", "in a way yes...you become part of the plants/animals that feed on the remains of your body", 'd');
+		verify(mockQuizStore).createNewQuestion("Is there life after death?", "No", "yes", "re-incarnation", "in a way yes...you become part of the plants/animals that feed on the remains of your body",'d');
 	}
 	
 	/**
-	 * Returns the quiz corresponding to a particular quiz ID
-	 * @param quizId
-	 * @return Quiz 
+	 * checks that getQuiz() method invokes a getQuiz() method call on the QuizStore class
 	 */
 	@Test
 	public void testGetQuiz(){
+		testServer.getQuiz(888);
+		verify(mockQuizStore).getQuiz(anyInt());
 	}
 	
 	/**
-	 * Returns a new player quiz attempt object based on the quiz that corresponds to the quiz name passed to the method
-	 * @param quizName
-	 * @param playerName
-	 * @return PlayerAttempt 
+	 * checks that getQuizAttempt() method invokes a getQuizAttempt() method call on the QuizStore class
 	 */
 	@Test
 	public void testgetQuizAttempt(){
+		testServer.getQuizAttempt(quizName, "Philippa");
+		verify(mockQuizStore).getQuizAttempt(anyString(), anyString());
 	}
 	
 	/**
-	 * Returns a list of the available quizzes a user can play
-	 * @return List of string values representing the available quizzes a user can play
+	 * checks that getAvailableQuizList() method invokes a getAvailableQuizList() method call on the QuizStore class
 	 */
 	@Test
-	public void testGetAvaliableQuizList(){
+	public void testGetAvailableQuizList(){
+		testServer.getAvailableQuizList();
+		verify(mockQuizStore).getAvailableQuizList();
 	}
 	
 	/**
-	 * Adds a mark to the players score 
-	 * @param game a player attempt based on a certain quiz
+	 * checks that addMarkToScore() method invokes a addMarkToScore() method call on the QuizStore class
 	 */
 	@Test
 	public void testAddMarkToScore(){
-
+		testServer.addMarkToScore(mockPA);
+		verify(mockQuizStore).addMarkToScore(mockPA);
 	}
 	
 	/**
-	 * Returns the player score for a particular player attempt of a quiz
-	 * @param game a player attempt based on a certain quiz
-	 * @return int value of the player score
+	 * checks that getPlayerScore() method invokes a getPlayerScore() method call on the QuizStore class
 	 */
 	@Test
 	public void testGetPlayerScore(){
+		testServer.getPlayerScore(mockPA);
+		verify(mockQuizStore).getPlayerScore(mockPA);
 	}
 	
 	/**
-	 * Adds a new quiz to the quiz list and saves it to disk
-	 * @param newQuiz
-	 * @throws RemoteException
+	 * checks that saveQuiz() method invokes a saveQuiz() method call on the QuizStore class
 	 */
 	@Test
-	public void testSaveQuiz(){
-		
+	public void testSaveQuiz() throws RemoteException{
+		Quiz mockedQuiz = mock(Quiz.class);
+		testServer.saveQuiz(mockedQuiz);
+		verify(mockQuizStore).saveQuiz(mockedQuiz);
 	}
 	
 	/**
-	 * Adds the result of a player attempt to the results list and saves it to disk
-	 * @param game a player attempt
-	 * @throws RemoteException
+	 * checks that saveResult() method invokes a saveResult() method call on the QuizStore class
 	 */
 	@Test
-	public void testSaveResult(){
-		
+	public void testSaveResult() throws RemoteException{
+		testServer.saveResult(mockPA);
+		verify(mockQuizStore).saveResult(mockPA);
 	}
 	
 	/**
-	 * Closes the quiz game referenced by a particular quiz ID and saves the quiz store to disk
-	 * @param quizId
-	 * @throws RemoteException
+	 * checks that closeQuizGame() method invokes a closeQuizGame() method call on the QuizStore class
 	 */
 	@Test
 	public void testCloseQuizGame(){
-		
+		try {
+			testServer.closeQuizGame(567);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		verify(mockQuizStore).closeQuizGame(anyInt());
 	}
 }
 
