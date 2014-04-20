@@ -127,15 +127,6 @@ public class QuizServerImpl extends UnicastRemoteObject implements QuizServer, S
 		quizStore.closeQuizGame(quizId);
 		flush();
 	}
-	
-	/**
-	 * Dummy echo method for testing the RMI connection
-	 */
-	@Override
-	public String echo(String s) throws RemoteException{
-		System.out.println("Replied to a client saying '" + s + "'");
-		return s;
-	}	
 }
 
 

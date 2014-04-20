@@ -20,13 +20,11 @@ public class PlayerClient {
 	}
 	
 	public static void main(String[] args){
-		//read input string from console
-		String para = args[0];
 		PlayerClient pc = new PlayerClient();
-		pc.launch(para);
+		pc.launch();
 	}
 	
-	private void launch(String str){
+	private void launch(){
 		// If there is no security manager, start one
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new RMISecurityManager());
@@ -34,9 +32,6 @@ public class PlayerClient {
 		try {
 			Remote service = Naming.lookup("//127.0.0.1:1099/quiz");
 			quizGameService = (QuizServer) service;
-			String receivedEcho = quizGameService.echo(str);
-			System.out.println("this is the received echo:  " + receivedEcho);
-
 			System.out.println("WELCOME TO THE QUIZ GAME:");
 			boolean finished = false;
 			int selection = 0;

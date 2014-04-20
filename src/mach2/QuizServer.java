@@ -84,11 +84,6 @@ public interface QuizServer {
 	 * @throws RemoteException
 	 */
 	void closeQuizGame(int quizId) throws RemoteException;
-	
-	/**
-	 * Dummy echo method for testing the RMI connection
-	 */
-	String echo(String s) throws RemoteException;
 }
 
 

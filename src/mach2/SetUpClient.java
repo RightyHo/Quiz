@@ -35,12 +35,10 @@ public class SetUpClient {
 	}
 
 	public static void main(String[] args){
-		//read input string from console
-		String para = args[0];
 		SetUpClient su = new SetUpClient();
-		su.launch(para);
+		su.launch();
 	}
-	private void launch(String str){
+	private void launch(){
 		// If there is no security manager, start one
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new RMISecurityManager());
@@ -48,10 +46,6 @@ public class SetUpClient {
 		try {
 			Remote service = Naming.lookup("//127.0.0.1:1099/quiz");
 			quizService = (QuizServer) service;
-
-			String receivedEcho = quizService.echo(str);
-			System.out.println("this is the received echo:  " + receivedEcho);
-			
 			System.out.println("QUIZ SET UP:");
 			boolean finished = false;
 			int selection = 0;
